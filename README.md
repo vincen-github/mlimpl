@@ -1,6 +1,6 @@
 # LinearRegression-Ridge-Lasso-Collinearity-Optimizer
 
-This Repository is python code which packages some  commonly used methods.
+This Repository is python code which packages some  commonly used methods about linear model.
 
 I will make subsequent updates to the code.
 
