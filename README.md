@@ -9,6 +9,9 @@ Specific usage details can be obtained from the source code.
 Here is some brief information about code
 
 linear_model:
+
       LinearRegression-Ridge-Lasso-Collinearity-Optimizer(includeing gradient descent and adamoptimizier)
+      
 DecisionTree:
+
       ID3-C4.5-Cart(Regression),but i did not package it into a class.
