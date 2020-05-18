@@ -10,7 +10,7 @@ Here is some brief information about code
 
 linear_model:
 
-- LinearRegression-Ridge-Lasso-Collinearity-Optimizer(includeing gradient descent and adamoptimizier)-$R^2$-$modified\quad R^2$
+- LinearRegression-Ridge-Lasso-Collinearity-Optimizer(includeing gradient descent and adamoptimizier)-R²-modified R²，and so on
       
 DecisionTree:
 - ID3-C4.5-Cart(Regression),but i did not package it into a class.
