@@ -40,11 +40,12 @@ class LinearRegression(object):
             self.noise_miu = noise_miu
             self.noise_sigma = noise_sigma
 
-    def generate_data(self,beta):
+    def generate_data(self,beta,random_state = None):
         """
         parameters:
             input:beta
                 The parameters of data generated,the last value of beta is the bias of generative dataset.
+            notation:该方法会自动生成偏置全1列
             return : the generative dataset
                 type: DataFrame
         """
@@ -61,6 +62,7 @@ class LinearRegression(object):
             raise Exception('Covariance matrix is not positive define')
         else:
             # print(len(beta))
+            np.random.seed(random_state)
             #利用标准正态分布生成X
             X = np.random.multivariate_normal(mean = self.mean, cov = self.cov, size = self.shape[0])
             # 将全1的列向量加入到X的最后1列
@@ -136,8 +138,8 @@ class LinearRegression(object):
         """
         X_test = np.asarray(testing_data.iloc[:,:-1])
         y_test = np.asarray(testing_data.iloc[:,-1]).reshape(-1,1)
-        y_predict = np.matmul(X_test,self.alpha)
-        self.testing_error = ((y_test - y_predict)**2).sum()
+        y_predict = np.dot(X_test,self.alpha)
+        self.testing_error = ((y_test.reshape(y_predict.shape) - y_predict)**2).sum()
         return self.testing_error
 
     def predict(self,dataset):
@@ -314,7 +316,7 @@ class RidgeRegression(LinearRegression):
         y = np.asarray(dataset.iloc[:,-1]).reshape(-1,1)
         self.alpha = np.matmul(np.linalg.inv(np.matmul(X.T,X)+self.C*np.diag(np.ones(X.shape[1]))),np.matmul(X.T,y))
         y_predict = np.matmul(X,self.alpha)
-        self.training_error = ((y - y_predict)**2).sum()
+        self.training_error = ((y.reshape(y_predict.shape) - y_predict)**2).sum()
         return self.alpha,self.training_error
 
     #重写父类LinearRegression的batch_gradient_descent()方法
@@ -432,9 +434,88 @@ class RidgeRegression(LinearRegression):
 class Lasso(LinearRegression):
     '''
     Lasso Object(child class)
-    new attribute:
-        C:正则化项系数 默认为1
+        attribute:
+            c:噪声的影响强度,取值[0,1] 默认为0
+            shape:生成数据集的形状,默认为None     dtype = [sample_num,feature_num]
+            mean:x所服从正态分布的均值向量       默认为None
+            cov:x所服从正态分布的协方差矩阵      默认为None
+            noise_miu：噪声所服从的正态分布的均值
+            noise_sigma:噪声所服从的正态分布的方差
+            noise默认服从标准正态分布
+            C:正则化项系数 默认为1
+        function:
+            generate_data(): 按照实例化对象的初始属性生成数据集
+            regression_cond():计算Ridege中 X 的条件数
+            regression_correlation():可视化矩阵X的相关系数矩阵
+            score():通过训练好的model计算测试误差
+            predict():利用已训练好的model预测测试样本
+            square_R():goodness of fit
+            modified_square_R():modified_square_R
+            iterate_ridge:Solve lasso by iterative method of solving ridge multiple times
+            coordinate_descent():sovle lasso by coordinate descent
     '''
     def __init__(self,c = 0,shape = None,mean = None,cov = None,noise_miu = 0,noise_sigma = 1,C = 1):
         super(Lasso,self).__init__(c,shape,mean,cov,noise_miu,noise_sigma)
         self.C = C
+    def iterate_ridge(self,dataset,max_epoch,tol = 1e-4):
+        '''
+        iterate_ridge:
+            Solve lasso by iterative method of solving ridge multiple times
+            Iterated Ridge Regression using the approximation
+                            |w| =~ norm(w,2)/norm(w,1)
+        parameters:
+            input:
+                1.dataset      type:DataFrame  
+                    notation:the last columns is label and the penultimate column is a vector of all ones,but if your label y has been standardized,you can drop the penultimate column.
+                2.max_epoch     type:int
+                    notation:The max number of iterate.
+                3.tol       type:float
+                    notation:Threshold with coefficient set to 0. The reason why this parameter is necessary is because RidgeRegression does not have the sparsity.So if we do not set this parameter.The coefficients will close to zero but not equal to it.
+            return: lasso estimation result
+        '''
+        X = dataset.iloc[:,:-1]
+        y = dataset.iloc[:,-1]
+        # sample the initial params from the unifrom distribution 
+        self.alpha = np.random.uniform(0,1,size = dataset.shape[1] - 1)
+        for epoch in range(max_epoch):
+            temp_matrix = self.C*np.linalg.pinv(np.diag(np.abs(self.alpha)),hermitian = True)
+            self.alpha = np.matmul(np.linalg.inv(np.dot(X.T,X) + temp_matrix),np.matmul(X.T,y))
+        # 置0时，要避开偏置项
+        for i in range(self.alpha.shape[0] - 1):
+            if self.alpha[i] < tol:
+                self.alpha[i] = 0
+        return self.alpha
+
+    def coordinate_descent(self,dataset,eps = 1e-2):
+        """
+        coordinate_descent:
+            Solve lasso by corrdinate descent.
+            parameters:
+            input:
+                1.dataset      type:DataFrame  
+                    notation:the last columns is label and the penultimate column is a vector of all ones,but if your label y has been standardized,you can drop the penultimate column.
+                2.eps           type:float      defalut:1e-2
+                    notation:if ||alpha_t - alpha_{t+1} || < eps,we think it is convergence
+            return
+                lasso estimation result
+        """
+        X = dataset.iloc[:,:-1]
+        y = dataset.iloc[:,-1]
+        n = X.shape[0]
+        self.alpha = np.random.uniform(0,1,size = dataset.shape[1] - 1)
+        alpha_copy = -np.ones(dataset.shape[1] - 1)
+        while(np.linalg.norm(alpha_copy - self.alpha) > eps):
+            alpha_copy = self.alpha.copy()
+            for j in range(X.shape[1]):
+                X_j = X.iloc[:,j]
+                X_drop = X.drop([j],inplace = False,axis = 1)
+                alpha_drop = np.delete(self.alpha,[j])
+                r_j = y - np.dot(X_drop,alpha_drop).reshape(y.shape)
+                temp = (1/n)*np.dot(X_j.T,r_j)
+                if temp > self.C:
+                    self.alpha[j] = temp - self.C
+                elif temp < -self.C:
+                    self.alpha[j] = temp + self.C
+                else:
+                    self.alpha[j] = 0
+        return self.alpha
