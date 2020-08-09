@@ -486,7 +486,7 @@ class Lasso(LinearRegression):
                 self.alpha[i] = 0
         return self.alpha
 
-    def coordinate_descent(self,dataset,eps = 1e-2):
+    def coordinate_descent(self,dataset,eps = 1e-6):
         """
         coordinate_descent:
             Solve lasso by corrdinate descent.
@@ -494,7 +494,7 @@ class Lasso(LinearRegression):
             input:
                 1.dataset      type:DataFrame  
                     notation:the last columns is label and the penultimate column is a vector of all ones,but if your label y has been standardized,you can drop the penultimate column.
-                2.eps           type:float      defalut:1e-2
+                2.eps           type:float      defalut:1e-6
                     notation:if ||alpha_t - alpha_{t+1} || < eps,we think it is convergence
             return
                 lasso estimation result
@@ -502,20 +502,29 @@ class Lasso(LinearRegression):
         X = dataset.iloc[:,:-1]
         y = dataset.iloc[:,-1]
         n = X.shape[0]
-        self.alpha = np.random.uniform(0,1,size = dataset.shape[1] - 1)
-        alpha_copy = -np.ones(dataset.shape[1] - 1)
+        #初始化alpha
+        self.alpha = np.random.uniform(0,1,size = X.shape[1])
+        #声明变量，用于浅拷贝alpha，以便于对比前一次的参数与后一次的参数，使用ones的原因是保证第一次可以进入循环
+        alpha_copy = -np.ones(X.shape[1])
+        # 前一次迭代的参数与后一次迭代的参数差的范数小于eps,则终止迭代
         while(np.linalg.norm(alpha_copy - self.alpha) > eps):
+            #浅拷贝alpha
             alpha_copy = self.alpha.copy()
-            for j in range(X.shape[1]):
-                X_j = X.iloc[:,j]
-                X_drop = X.drop([j],inplace = False,axis = 1)
-                alpha_drop = np.delete(self.alpha,[j])
-                r_j = y - np.dot(X_drop,alpha_drop).reshape(y.shape)
-                temp = (1/n)*np.dot(X_j.T,r_j)
-                if temp > self.C:
-                    self.alpha[j] = temp - self.C
-                elif temp < -self.C:
-                    self.alpha[j] = temp + self.C
+            for l in range(X.shape[1]):
+                #取出第l列
+                X_l = X.iloc[:,l]
+                #将去除第l列的X记为X_drop
+                X_drop = X.drop([l],inplace = False,axis = 1)
+                #将去除第l列的alpha记为alpha_drop
+                alpha_drop = np.delete(self.alpha,[l])
+                #构建去除第l列后的残差向量
+                r = y - np.dot(X_drop,alpha_drop).reshape(y.shape)
+                #构建与C比较的量
+                compare = (2/n)*np.dot(X_l.T,r)
+                if compare > self.C:
+                    self.alpha[l] = n*(compare - self.C)/(2*(X_l**2).sum())
+                elif compare < -self.C:
+                    self.alpha[l] = n*(compare + self.C)/(2*(X_l**2).sum())
                 else:
-                    self.alpha[j] = 0
+                    self.alpha[l] = 0
         return self.alpha
