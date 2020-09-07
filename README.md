@@ -1,6 +1,6 @@
 # Machine Learning Code
 
-This Repository is some code which packages some  commonly used methods about machine learning method.
+This Repository is some code which packages commonly used methods about machine learning method.
 
 I will make subsequent updates to the code.
 
@@ -11,25 +11,21 @@ Here is some brief information about code
 linear_model:
 - LinearRegression
 
-            generate_data(): 按照实例化对象的初始属性生成数据集
+            generate_data(): Generate data according to the initial properties of the instantiated object
             
-            regression_cond():计算线性回归中 X 的条件数
+            fit():training linear model (calculate by (X^T*X)^(-1)X*y), return alpha and RSS
             
-            regression_correlation():可视化矩阵X的相关系数矩阵
+            score():Calculate the test error through the trained model, return SSE
             
-            fit():最小二乘估计训练线性模型(直接利用(X^T*X)^(-1)*X*y计算)，return alpha和RSS
+            predict():Use the trained model to predict the test sample
             
-            score():通过训练好的model计算测试误差
+            batch_gradient_descent(): Each epoch uses the entire training set to calculate the gradient
             
-            predict():利用已训练好的model预测测试样本
+            stochastic_gradient_descent():Stochastic gradient descent uses each sample to calculate the gradient in each epoch.
             
-            batch_gradient_descent():批量梯度下降 每一个epoch用整个训练集计算梯度
-           
-            stochastic_gradient_descent():随机梯度下降 每一个epoch中运用每一个样本计算梯度
+            mini_batch_gradient_descent():In each epoch, a subset of the training set of equal size is used to calculate the gradient
             
-            mini_batch_gradient_descent():小批量梯度下降 每一个epoch中运用等大小的训练集的子集计算梯度
-            
-            AdamOptimizer():Adaptive Moment Estimation
+            AdamOptimizer():Adaptive Movement Estimation
             
             square_R():goodness of fit
             
@@ -37,13 +33,13 @@ linear_model:
             
 - Ridge
 
-            fit():training linear model (calculate by $(X^T X)^(-1)+CI)Xy$), return alpha and RSS
+            fit():training linear model (calculate by ((X^T*X)^(-1)+CI)X*y), return alpha and RSS
             
             batch_gradient_descent(): Each epoch uses the entire training set to calculate the gradient
             
             stochastic_gradient_descent():Stochastic gradient descent uses each sample to calculate the gradient in each epoch.
             
-            mini_batch_gradient_descent():小批量梯度下降 每一个epoch中运用等大小的训练集的子集计算梯度
+            mini_batch_gradient_descent():In each epoch, a subset of the training set of equal size is used to calculate the gradient
             
             AdamOptimizer():Adaptive Moment Estimation
             
@@ -57,10 +53,28 @@ linear_model:
  
             iterate_ridge:Solve lasso by iterative method of solving ridge multiple times
             
-            coordinate_descent():sovle lasso by coordinate descent
+            coordinate_descent():sovle lasso by coordinate descent.
       
-DecisionTree:
-- ID3-C4.5-Cart(Regression),but i did not package it into a class.
+- DecisionTree:
 
-NaiveBayes:
-- MultinomialNB:Multinomial Naive Bayes
+            ID3.
+            
+            C4.5.
+            
+            Cart(Regression).
+
+- NaiveBayes:
+
+            MultinomialNB:Multinomial Naive Bayes.
+            
+- Gan:
+
+            Generate handwritten digital pictures through Gan and achieve by tensorflow.
+
+- ann_by_matlab:
+            
+            a simple artificial neural networks achieved by matlab to distinguish the mnist digital dataset.
+
+- CNN:
+
+            Recognize digital verification code through CNN
