@@ -1,6 +1,6 @@
 # Machine Learning Code
 
-This Repository is python code which packages some  commonly used methods about machine learning method.
+This Repository is some code which packages some  commonly used methods about machine learning method.
 
 I will make subsequent updates to the code.
 
@@ -37,11 +37,11 @@ linear_model:
             
 - Ridge
 
-            fit():最小二乘估计训练线性模型((直接利用(X^T*X)^(-1)+CI)*X*y计算)，return alpha和RSS
+            fit():training linear model (calculate by $(X^T X)^(-1)+CI)Xy$), return alpha and RSS
             
-            batch_gradient_descent():批量梯度下降 每一个epoch用整个训练集计算梯度
+            batch_gradient_descent(): Each epoch uses the entire training set to calculate the gradient
             
-            stochastic_gradient_descent():随机梯度下降 每一个epoch中运用每一个样本计算梯度
+            stochastic_gradient_descent():Stochastic gradient descent uses each sample to calculate the gradient in each epoch.
             
             mini_batch_gradient_descent():小批量梯度下降 每一个epoch中运用等大小的训练集的子集计算梯度
             
