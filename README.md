@@ -67,6 +67,7 @@ linear_model:
 
             MultinomialNB:Multinomial Naive Bayes.
             
+            GaussianNB:Gaussian Naive Bayes.
 - Gan:
 
             Generate handwritten digital pictures through Gan and achieve by tensorflow.
