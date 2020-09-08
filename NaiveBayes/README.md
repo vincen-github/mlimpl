@@ -34,7 +34,7 @@ naive_bayes class object:
             
             score():set accuracy = ΣI(y_predict == ytest) as criterion to measure the goodness of trained model.
             
-  -  GaussianNB Naive Bayes
+  -  Gaussian Naive Bayes
   
           GaussianNB object:
         
