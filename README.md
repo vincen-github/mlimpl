@@ -62,6 +62,8 @@ linear_model:
             C4.5.
             
             Cart(Regression).
+            
+            DecisionTree.py:Encapsulate the decision tree as a class
 
 - NaiveBayes:
 
