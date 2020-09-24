@@ -2,7 +2,7 @@
 @author:vincen
 @email:vincen.nwu@gmail.com
 @Northwest University——China
-@time:6:48 PM Tuesday, September 15, 2020
+@time:9:48 pm Thursday, 24 September 2020
 @Compiler Environment:vscode
 @Test data source:https://blog.csdn.net/u012421852/article/details/79808307
 @my github address: https://github.com/vincen-github/Machine-Learning-Code
