@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 decisionNode = dict(boxstyle="sawtooth", fc="0.8")
 leafNode = dict(boxstyle="round4", fc="0.8")
 arrow_args = dict(arrowstyle="<-")
@@ -57,6 +58,8 @@ def plotTree(myTree, parentPt, nodeTxt):
     plotTree.yOff = plotTree.yOff + 1.0 / plotTree.totalD
 
 def createPlot(inTree):
+    plt.rcParams['font.sans-serif'] = ['SimHei'] 
+    plt.rcParams['axes.unicode_minus'] = False 
     fig = plt.figure(1, facecolor='white')
     fig.clf()
     axprops = dict(xticks=[], yticks=[])
