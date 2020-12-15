@@ -9,7 +9,7 @@ Specific usage details can be obtained from the source code.
 
 Here is some brief information about code
 
-linear_model - : LinearRegression、Ridge、Lasso、AdamOptimizer、iterate_ridge and so on.
+- linear_model - : LinearRegression、Ridge、Lasso、AdamOptimizer、iterate_ridge and so on.
 
 - DecisionTree: ID3,C4.5,Cart(Regression).
   
