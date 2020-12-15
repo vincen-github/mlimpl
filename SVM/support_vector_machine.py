@@ -211,6 +211,7 @@ class SVM(object):
         # 更新non-bound subset所对应的index.
         self.non_bound_subset_index = np.argwhere((0 < self.alpha) & (self.alpha < self.C)).flatten()
         # 用新的乘子对self.Ei进行更新
+        # print("update Ei.")
         self.__updateEi()
         # self.Ei[i1] = self.predict_single_sample(self.X[i1]) - self.y[i1]
         # self.Ei[i2] = self.predict_single_sample(self.X[i2]) - self.y[i2]
@@ -312,12 +313,13 @@ class SVM(object):
         self.y = y
 
         # 初始化lagrange乘子
-        self.alpha = np.zeros(self.nrow)
+        # 若alpha初始化为0,则更新会很慢。
+        self.alpha = np.random.uniform(0, self.C, self.nrow)
         # 初始时self.non_bound_subset = np.array([])
         self.non_bound_subset_index = np.array([])
         # 初始化Ei
         # 最开始时由于alpha都初始化为0，所以直接设置预测标签值(记为label)全部为0
-        self.target = np.zeros(self.nrow)
+        self.target = self.predict(X)
         self.Ei = self.target - y
 
         # examineAll控制是否遍历整个数据集
@@ -325,8 +327,11 @@ class SVM(object):
         examineAll = True
         numChanged = 0
         
+        iternum = 1
         # outerloop
         while examineAll == True or numChanged > 0:
+            print("iternum :", iternum, " numChanged:", numChanged)
+            iternum += 1
             # 若numChanged >0,说明上一轮while循环中有优化成功的乘子,
             # 为了该轮循环numChanged能正确反应是否有优化成功的乘子,将numChanged置0.
             if numChanged > 0:
@@ -378,6 +383,7 @@ class SVM(object):
 
 # %%
 from sklearn.datasets import make_moons
+from sklearn.datasets import load_breast_cancer
 if __name__ == "__main__":
     X, y = make_moons(n_samples = 100,
                                 shuffle = True, 
@@ -389,4 +395,13 @@ if __name__ == "__main__":
     model.fit(X, y)
     pred = model.predict(X)
     score = model.score(X, y)
+    #score = 0.95
+
+# %%
+X,y = load_breast_cancer(return_X_y = True)
+model = SVM(kernel = 'rbf', C = 2)
+model.fit(X, y)
+pred = model.predict(X)
+score = model.score(X, y)
+# score = 1
 # %%
