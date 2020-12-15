@@ -1,5 +1,4 @@
 # Machine Learning Code
--------------------------
 
 This Repository is some code which packages commonly used methods about machine learning method.
 
