@@ -59,7 +59,14 @@ class SVM(object):
                     K(x1, x2) = exp(-γ||x1 - x2||²)
                     notation: If use linear kernel function.You can ignore this parameters.
         
-        3. takeStep(self, i1, i2):
+        3. __label_transform(self, y):
+        Check whether the label is binary classification and convert the label to -1 and +1.
+
+            Parameters:
+            -----------
+                y: labels of training set.
+        
+        4. takeStep(self, i1, i2):
             Update the alpha1, alpha2, w, b after determining the two optimized Lagrangian multipliers.
             
             Parameters:
@@ -67,7 +74,7 @@ class SVM(object):
                 i1: Index of the first  Lagrangian multiplier.
                 i2: Index of the second Lagrangian multiplier.
 
-        4. examineExample(self):
+        5. examineExample(self):
             Determine alpha1 and alpha2 in each round of optimization.
 
             Determination of alpha2
@@ -79,17 +86,17 @@ class SVM(object):
             maximize the |E1 - E2|
             If E1 is positive, SMO chooses an example with minimum error E2.If E1 is negative, SMO chooses an example with maximum error E2.
         
-        5. __updateEi(self):
+        6. __updateEi(self):
             private function.Used to update the error of each round.
         
-        5. predict_single_sample(self, x):
+        7. predict_single_sample(self, x):
             predict the object function value according to inputing vector x.
             It should be noted that sign(object function value) = target.
 
-        6. predcit(self, X):
+        8. predcit(self, X):
             predict the target according to multiple smaples at the same time.
 
-        7. score(self, X, y):
+        9. score(self, X, y):
                 score = ΣI{y == y_pred}/X.shape[0]
     """
     def __init__(self, kernel = 'rbf', C = 1, tol = 1e-3, eps = 1e-3):
@@ -119,7 +126,20 @@ class SVM(object):
                 raise ValueError("gamma must be positive; got (gamma = %r)" % gamma)
 
             return np.exp(-gamma*np.power(np.linalg.norm(x1 - x2), 2))
-    
+
+    def __label_transform(self, y):
+        possible_label = np.unique(y)
+        if possible_label.shape[0] != 2:
+            raise ValueError("The target of dataset is not binary.")
+        # 若样本的标签值不为-1, 1,重置样本的标签
+        if set(possible_label) != set([-1, 1]):
+            for i in range(self.nrow):
+                if y[i] == possible_label[0]:
+                    y[i] = -1
+                else:
+                    y[i] = 1
+        return y
+
     def takeStep(self, i1, i2):
         # 若选出的两个乘子的Index相同,此时优化失败。
         if i1 == i2:
@@ -301,16 +321,11 @@ class SVM(object):
         possible_label = np.unique(y)
         if possible_label.shape[0] != 2:
             raise ValueError("The target of dataset is not binary.")
-        # 若样本的标签值不为-1, 1,重置样本的标签
-        if set(possible_label) != set([-1, 1]):
-            for i in range(self.nrow):
-                if y[i] == possible_label[0]:
-                    y[i] = -1
-                else:
-                    y[i] = 1
+
         # 将数据转化为类属性
         self.X = X
-        self.y = y
+        # 若样本的标签值不为-1, 1,重置样本的标签
+        self.y = self.__label_transform(y)
 
         # 初始化lagrange乘子
         # 若alpha初始化为0,则更新会很慢。
@@ -377,28 +392,29 @@ class SVM(object):
         return target
     
     def score(self, X, y):
-        y = y.reshape(-1)
-        pred = self.predict(X).reshape(-1)
+        y = self.__label_transform(y).flatten()
+        pred = self.predict(X).flatten()
         return (pred == y).sum()/X.shape[0]
 
 # %%
-from sklearn.datasets import make_moons
-from sklearn.datasets import load_breast_cancer
-if __name__ == "__main__":
-    X, y = make_moons(n_samples = 100,
-                                shuffle = True, 
-                                noise = .1, 
-                                random_state = 42)
+# from sklearn.datasets import make_moons
+# if __name__ == "__main__":
+#     X, y = make_moons(n_samples = 100,
+#                                 shuffle = True, 
+#                                 noise = .1, 
+#                                 random_state = 42)
 
-    # bulid the model
-    model = SVM(kernel = 'rbf', C = 2)
-    model.fit(X, y)
-    pred = model.predict(X)
-    score = model.score(X, y)
+#     # bulid the model
+#     model = SVM(kernel = 'rbf', C = 2)
+#     model.fit(X, y)
+#     pred = model.predict(X)
+#     score = model.score(X, y)
     #score = 0.95
 
 # %%
+from sklearn.datasets import load_breast_cancer
 X,y = load_breast_cancer(return_X_y = True)
+y1 = y.copy()
 model = SVM(kernel = 'rbf', C = 2)
 model.fit(X, y)
 pred = model.predict(X)
