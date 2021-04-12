@@ -12,12 +12,14 @@ class LHalf(object):
     # Member variables
     _Lambda = None
     _iteration = None
+    _threshold = None
     _beta = None
     _training_error = None
 
-    def __init__(self, Lambda, iteration):
+    def __init__(self, Lambda, iteration, threshold=1e-4):
         self.Lambda = Lambda
         self.iteration = iteration
+        self.threshold = threshold
 
     @property
     def Lambda(self):
@@ -48,6 +50,20 @@ class LHalf(object):
             raise TypeError
 
     @property
+    def threshold(self):
+        return self._threshold
+
+    @threshold.setter
+    def threshold(self, threshold):
+        if isinstance(threshold, (float, int)):
+            if threshold > 0:
+                self._threshold = threshold
+            else:
+                raise ValueError
+        else:
+            raise TypeError
+
+    @property
     def beta(self):
         return self._beta
 
@@ -63,6 +79,10 @@ class LHalf(object):
             temp_matrix = self.Lambda * pinv(diag(power(abs(self._beta), 3 / 2)), hermitian=True)
             self._beta = inv(X.T @ X + temp_matrix) @ (X.T @ y)
         logging.info("Training completed.....")
+
+        for i in range(ncol):
+            if abs(self._beta[i]) < self.threshold:
+                self._beta[i] = 0
 
         y_pred = self.predict(X)
         self._training_error = (y - y_pred).mean()
@@ -98,6 +118,8 @@ if __name__ == "__main__":
     lHalf = LHalf(Lambda, ITERATION)
 
     lHalf.fit(X, y)
+
+    print(lHalf.beta)
 
     y_pred = lHalf.predict(X)
 
