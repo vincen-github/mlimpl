@@ -9,6 +9,52 @@ logger = logging.getLogger(__name__)
 
 
 class LHalf(object):
+    """
+    LHalf Algorithm
+    ===============
+
+    introduction of l1/2:
+    ---------------------------
+        l1/2 algorithm is a improved variant algorithm of lasso.
+        it is a linear model as lasso but the optimization object of it is as follows
+                    min loss = 1/2*||Y - Xβ|| + λ||β||_{1/2}
+        Where the form of regular term ||β||_{1/2} as follows
+                    ||β||_{1/2} = Σβ_i^{1/2}
+    ------------------------
+
+    How to solve this model in this class?
+    ------------------------------------------
+        i convert it to a known,solvable question by following approximate formula
+                    β(t)_i^{1/2} ≈ β(t)_i^{2} / β(t-1)_i^{3/2}
+        Where β(t) represent the iterative parameters at step t.
+        Actually, the optimal point of l1/2 is similar to iterate ridge for solving lasso,
+        which has explicit solution as follow
+                    β* = (X^T@X + λ*diag{|β|^{-3/2})^{-1}@X@Y
+
+    ------------------------------
+    Some note of this algorithm
+        1. note that this approximation becomes numerically unstable as any approaches ,
+           and that this is exactly what we expect at the optimal solution.
+           To avoid this problem, we can use a generalized inverse of diag{|β|^{-3/2}
+        2. The optimal point of ridge is not sparse.it is different from l1/2.So we need
+           to set a threshold ahead to cut off intermediate solution.We set the fault value
+            of this parameter as 1 e-4.Of course u can change it to any non-negative number.
+    ------------------------------
+
+    Parameters:
+        1. Lambda : λ as above mathematical formula
+        2. iteration : this parameter can specify the number of ridge u want to iterate.
+        3. threshold : block parameter. choose the value of cutting off threshold through specify it.
+        4. beta : u can get the coefficient by call the getter method of this parameter that decorate by @property.
+        5. training_error : u can get training error through this attribute instead of calling score method on training set.
+
+    Method:
+        The method name corresponds to sklearn, so i won’t repeat it here.
+        1. fit()
+        2. predict()
+        3. score()
+    ------------------------------
+    """
     # Member variables
     _Lambda = None
     _iteration = None
