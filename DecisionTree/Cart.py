@@ -13,7 +13,7 @@ class CartRegressor(object):
     """
     CartRegressor
     ================
-        Training regression binary tree recursively.
+    Training regression binary tree recursively.
     ----------------------------------------------------
     @author: vincen
     @NorthWestern University——CHINA  Mathematics faculty statistic
@@ -23,13 +23,15 @@ class CartRegressor(object):
     Reference: <统计学习方法> 李航 P70-P71
     =====================================================-
     Attribute:
-        1. min_samples:
+        1. max_depth: int, default=5
+            Maximum depth of the tree
+        2. min_samples: int, default=5
             The minimum number of samples in the leaf nodes of the tree.
-        2. split_threshold
+        3. split_threshold: float, default=10
             the current point is split when the gini value of the optimal segmentation point is less than this value
     =========================================
     Method:
-        1. fit(self, X, y):
+        1. fit(self, X, y, depth=1):
             The method for training cart tree.
         2. gini(self, y)
             calculate gini value.
@@ -50,9 +52,22 @@ class CartRegressor(object):
     =============================================================
     """
 
-    def __init__(self, min_samples=5, split_threshold=10):
+    def __init__(self, max_depth=5, min_samples=5, split_threshold=10):
+        self.max_depth = max_depth
         self.min_samples = min_samples
         self.split_threshold = split_threshold
+
+    @property
+    def max_depth(self):
+        return self._max_depth
+
+    @max_depth.setter
+    def max_depth(self, max_depth):
+        if not isinstance(max_depth, int):
+            raise TypeError
+        if max_depth < 1:
+            raise ValueError
+        self._max_depth = max_depth
 
     @property
     def min_samples(self):
@@ -78,7 +93,7 @@ class CartRegressor(object):
             raise ValueError
         self._split_threshold = split_threshold
 
-    def fit(self, X, y):
+    def fit(self, X, y, depth=1):
         """
         fit(self, X, y)
         ===============
@@ -90,23 +105,27 @@ class CartRegressor(object):
             y: array_like
                 Current corresponding label.
         """
-        # get the feature name of dataset
-        self.feature_names = X.columns
-        # self.used_feature_and_value record best_feature and best_value already used to avoid use it in future.
-        self.used_features_and_values = []
-        # if the numbers of samples in X less than min_samples or candidate feature set is empty set,
+        # if depth == 1, we need to initialize feature_names once
+        if depth == 1:
+            # get the feature name of dataset
+            self.feature_names = X.columns
+        # if depth is equal to max_depth u initialized.return the mean value of labels in this node
+        if depth == self.max_depth:
+            logger.info("The depth of the tree reaches max_depth({}).".format(self.max_depth))
+            return y.mean()
+            # if the numbers of samples in X less than min_samples
         # return the mean value of corresponding labels.
-        if X.shape[0] < self.min_samples or X.shape[1] == 0:
+        if X.shape[0] < self.min_samples:
+            logger.info("The number of samples in X less than min_samples({}).".format(self.min_samples))
             return y.mean()
         # get the best split point
         best_feature, best_value, gini = self.select_best_split(X, y)
         # if gini value less than  split_threshold, return the mean value
         if gini < self.split_threshold:
+            logger.info("Gini value less than  split_threshold({})".format(self.split_threshold))
             return y.mean()
         # print logging
         logger.info("best_feature:{}, best_value:{}, gini:{}".format(best_feature, best_value, gini))
-        # record used feature and value
-        self.used_features_and_values.append((best_feature, best_value))
         # split current dataset by best_feature and best_value above
         left, right = self.split_dataset(X, y, best_feature, best_value)
 
@@ -114,8 +133,8 @@ class CartRegressor(object):
         # @denote that u can't revise following tree to self.tree,it will cause Recursion cannot be performed.
         tree = {best_feature: {}}
         # Recursive building tree
-        tree[best_feature][str(best_value) + " left"] = self.fit(*left)
-        tree[best_feature][str(best_value) + " right"] = self.fit(*right)
+        tree[best_feature][str(best_value) + "(l)"] = self.fit(*left, depth=depth + 1)
+        tree[best_feature][str(best_value) + "(r)"] = self.fit(*right, depth=depth + 1)
 
         self.tree = tree
         return tree
@@ -149,16 +168,14 @@ class CartRegressor(object):
         for candidate_feature in self.feature_names:
             # iterate candidate value of candidate feature
             for candidate_value in X[candidate_feature].drop_duplicates().sort_values():
-                # judge candidate_feature and candidate_value whether used in past time.
-                if not (candidate_feature, candidate_value) in self.used_features_and_values:
-                    # split the dataset using above candidate feature and value of it.
-                    # denoted as left and right
-                    left, right = self.split_dataset(X, y, split_feature=candidate_feature, split_value=candidate_value)
-                    # calculate the gini value of them
-                    left_gini = self.gini(left[1])
-                    right_gini = self.gini(right[1])
-                    # storage candidate feature, candidate value and its performance in gini_ls with a tuple.
-                    gini_ls.append((candidate_feature, candidate_value, left_gini + right_gini))
+                # split the dataset using above candidate feature and value of it.
+                # denoted as left and right
+                left, right = self.split_dataset(X, y, split_feature=candidate_feature, split_value=candidate_value)
+                # calculate the gini value of them
+                left_gini = self.gini(left[1])
+                right_gini = self.gini(right[1])
+                # storage candidate feature, candidate value and its performance in gini_ls with a tuple.
+                gini_ls.append((candidate_feature, candidate_value, left_gini + right_gini))
         # get the best feature and value from above gini_ls using compare the 3th element to find minimal variance
         best_index = 0
         for i in range(len(gini_ls)):
@@ -223,14 +240,14 @@ class CartRegressor(object):
         # if feature is continuous.
         if isinstance(x[feature_name], float):
             # get the split value through arbitrary branch
-            split_value = list(tree.get(feature_name).keys())[0].split(' ')[0]
+            split_value = list(tree.get(feature_name).keys())[0].split('(')[0]
             if x[feature_name] > float(split_value):
                 return self.single_predict(x, right)
             else:
                 return self.single_predict(x, left)
         # if feature is discrete
         else:
-            split_value = list(tree.get(feature_name).keys())[0].split(' ')[0]
+            split_value = list(tree.get(feature_name).keys())[0].split('(')[0]
             if x[feature_name] == split_value:
                 return self.single_predict(x, left)
             else:
