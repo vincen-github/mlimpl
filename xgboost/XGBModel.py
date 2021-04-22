@@ -1,7 +1,7 @@
 # import the system python package instead of the package that in same directory as this file and package name imported.
 from __future__ import absolute_import
 
-from numpy import zeros
+from numpy import zeros, power as pow
 
 from BaseTree import BaseTree
 from LeastSquareLoss import LeastSquareLoss
@@ -31,7 +31,7 @@ class XGBModel(object):
     Attribute:
     ==========
         1. n_estimator : int, default=100
-            the number of ensemble base model
+            the number of ensemble base model.
             Default:100
         2. gamma : float, default=1
             The parameters of regularization term ———— gamma*T.
@@ -39,12 +39,12 @@ class XGBModel(object):
         3. Lambda : float, default = 1
             The parameters of regularization term ———— Lambda*(||w||^2)/2
         4. max_depth : int, default = 3
-            the max depth of every base tree
+            the max depth of every base tree.
         5. min_samples_split: int, default = 3
-            The minimum number pf samples required to split and internal node
+            The minimum number pf samples required to split and internal node.
             consider `min_samples_split` as the minimum number.
         6. split_threshold: int or float, default=10
-            The current point is split when the gain value of the optimal segmentation point is less than this value
+            The current point is split when the gain value of the optimal segmentation point is less than this value.
         7. loss_func: implement of abstract class., default=LeastSquareLoss
             loss function that u can specify in xgboost.
             u need to implement the abstract class named loos_func before construct XGBModel object.
@@ -56,13 +56,14 @@ class XGBModel(object):
     Method:
     ===========
         The data u passed to following method must be digitize.
-        1. fit(X, y, split_strategy = "exact"):
-            split_strategy: u can choose "exact" or "approximate" to specify how to
+        1. fit(X, y, split_finding_strategy = "exact"):
+            split_finding_strategy: u can choose "exact" or "approximate" to specify how to
              choose the split feature and its value of it in process of training.
         2, predict(X):
             Predict the label of new samples X.
         3. score(X, y):
-
+            Get the mean square error(mse) of y_pred and y.
+            where y_pred is calculated by X passed and trained xgboost model.
     """
 
     def __init__(self,
@@ -164,19 +165,27 @@ class XGBModel(object):
             raise TypeError
         self._loss_func = loss_func
 
-    def fit(self, X, y):
+    def fit(self, X, y, split_finding_strategy="exact"):
         """
         fit(self, X, y)
         --------------
         Parameters:
-            X: DataFrame.
-            y: array_like
+            1. X: DataFrame.
+            2. y: array_like
+            3. split_finding_strategy: {"exact", "approximate"}, default="exact"
+                Strategy used in selection of best split feature and value.
         """
+        if split_finding_strategy not in ('exact', 'approximate'):
+            raise ValueError
+        # Else, record split_finding_strategy in instance of class.
+        self.split_finding_strategy = split_finding_strategy
+
         # ensemble list is used to store multiple trained base models.
         self.ensemble = []
+
         # Train the base model one by one
         for k in range(self.n_estimator):
-            logger.info("ITERATION NUMBER: {}".format(k))
+            logger.info("ITERATION NUMBER: {}".format(k + 1))
             # calculate y_hat using the base model already exists.
             y_hat = self.predict(X)
             # calculate g and h for every samples in dataset based on the based model has already obtained.
@@ -189,17 +198,25 @@ class XGBModel(object):
                                   split_threshold=self.split_threshold,
                                   gamma=self.gamma,
                                   Lambda=self.Lambda,
+                                  split_finding_strategy=self.split_finding_strategy,
                                   loss_func=self.loss_func)
+            # Denote that u can't combine following line with above lines.Because method named train of BaseTree
+            # return a tree with dict form.if u perform it.base_model is a dict that has not method named predict.
             base_model.train(X, y)
             # append base_model to ensemble
             self.ensemble.append(base_model)
 
     def predict(self, X):
         """
-        predict()
+        predict(self, X)
+        =========
         parameters:
-            X:the dataset you want to predict.
-                type:array_like
+            X: array_like
+                the dataset you want to predict.
+        ---------------------
+        Return:
+            res: array_like
+                The label corresponding to X.
         """
         # if the length of self.base_model is 0.return 0 directly.
         if len(self.ensemble) == 0:
@@ -209,3 +226,17 @@ class XGBModel(object):
         for base_model in self.ensemble:
             res += base_model.predict(X)
         return res
+
+    def score(self, X, y):
+        """
+        score(self, X, y)
+        ================
+        Parameters:
+            1. X: array_like or dataframe
+            2. y: array_like
+        ----------------
+        Return:
+             mse.
+        """
+        y_pred = self.predict(X)
+        return pow(y - y_pred, 2).mean()

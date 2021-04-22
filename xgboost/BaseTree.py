@@ -30,7 +30,9 @@ class BaseTree(object):
             Parameter used to compute the best value of loss function in a iteration
         5. Lambda: int or float, default=1
             Parameter used to select the best split feature and value and best value of loss function in a iteration.
-        6. loss_func: function, default=LeastSquareLoss
+        6. split_finding_strategy: {"exact", "approximate"}
+            The strategy used in finding best split feature and value.
+        7. loss_func: function, default=LeastSquareLoss
             The function to calculate g and h in xgboost.
     Method:
     ========
@@ -58,12 +60,14 @@ class BaseTree(object):
                  split_threshold=10,
                  gamma=1,
                  Lambda=1,
+                 split_finding_strategy="exact",
                  loss_func=LeastSquareLoss):
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
         self.split_threshold = split_threshold
         self.gamma = gamma
         self.Lambda = Lambda
+        self.split_finding_strategy = split_finding_strategy
         self.loss_func = loss_func
 
     def train(self, X, y, depth=1):
@@ -73,10 +77,12 @@ class BaseTree(object):
         Train base trees by recursive method.
         -----------------
         Parameters:
-            X: dataframe
+            1. X: dataframe
                 Current feature matrix.
-            y: array_like
+            2. y: array_like
                 Current corresponding label.
+            3. depth: int, default=1
+                Parameter which mark depth in current optimization.
         """
         # if depth == 1, we need to initialize feature_names at once
         if depth == 1:
@@ -133,8 +139,11 @@ class BaseTree(object):
         This method is to select the best feature under some criterion(here is gain value).
         ===============================
         Parameters:
-            1. X : dataframe
+            X : dataframe
                 feature matrix of dataset.
+        --------------------------------
+        Return:
+            best_feature, best_value, gain.
         """
         # gain_ls is used to store the gain value corresponding to each split point.
         gain_ls = []
@@ -150,7 +159,8 @@ class BaseTree(object):
                 G_r, H_r = self.G - G_l, self.H - H_l
                 # Prevent division by zero
                 if -self.Lambda not in (H_l, H_r, self.H):
-                    gain = (pow(G_l, 2) / (H_l + self.Lambda)) + (pow(G_r, 2) / (H_r + self.Lambda)) - (pow(self.G, 2) / (self.H + self.Lambda))
+                    gain = (pow(G_l, 2) / (H_l + self.Lambda)) + (pow(G_r, 2) / (H_r + self.Lambda)) - (
+                            pow(self.G, 2) / (self.H + self.Lambda))
                     gain_ls.append((candidate_feature, candidate_value, gain))
 
         # get the best feature and value from above gini_ls using compare the 3th element to find minimal variance
@@ -174,6 +184,11 @@ class BaseTree(object):
                 name of feature using split the dataset.
             4. split_value: str or float or int
                 value of split feature using split the dataset passed.
+        ----------------------------------------------------------
+        Return:
+            group1, group2
+            where group1 = (X1, y1), group2 = (X2, y2)
+            The number of columns of X1(y) is equal to X(y).
         """
         # get index of row satisfy the condition, denoted as group_index
         group_index = X[split_feature] > split_value

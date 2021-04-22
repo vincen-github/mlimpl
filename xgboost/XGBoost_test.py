@@ -33,9 +33,11 @@ if __name__ == "__main__":
                    split_threshold=100,
                    loss_func=LeastSquareLoss)
 
-    xgb.fit(X, y)
+    xgb.fit(X, y, split_finding_strategy="exact")
 
     y_pred = xgb.predict(X)
+
+    logger.info(xgb.score(X, y))
 
     plt.figure(dpi=400)
     plt.plot(y, label="true")
