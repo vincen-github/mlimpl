@@ -25,9 +25,10 @@ if __name__ == "__main__":
     # X['h'] = LeastSquareLoss.h(y, 0)
     # logger.info(X)
 
-    xgb = XGBModel(n_estimator=5,
+    xgb = XGBModel(n_estimator=10,
                    gamma=1,
                    Lambda=1,
+                   eta=0.1,
                    max_depth=5,
                    min_samples_split=3,
                    split_threshold=100,
