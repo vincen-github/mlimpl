@@ -38,17 +38,23 @@ class XGBModel(object):
             where T is the number of the child leaves.
         3. Lambda : float, default = 1
             The parameters of regularization term ———— Lambda*(||w||^2)/2
-        4. max_depth : int, default = 3
+        4. eta: float, default=0.1
+            A additional technique to prevent overfitting introduced by Friedman.
+            Shrinkage scales newly added in xgboost weights by this factor η after each
+            step of tree boosting. Similar to a learning rate in stochastic optimization,
+            shrinkage reduces the influence of each individual tree and leaves space for
+            future trees to improve the model.
+        5. max_depth : int, default = 3
             the max depth of every base tree.
-        5. min_samples_split: int, default = 3
+        6. min_samples_split: int, default = 3
             The minimum number pf samples required to split and internal node.
             consider `min_samples_split` as the minimum number.
-        6. split_threshold: int or float, default=10
+        7. split_threshold: int or float, default=10
             The current point is split when the gain value of the optimal segmentation point is less than this value.
-        7. loss_func: implement of abstract class., default=LeastSquareLoss
+        8. loss_func: implement of abstract class., default=LeastSquareLoss
             loss function that u can specify in xgboost.
             u need to implement the abstract class named loos_func before construct XGBModel object.
-        8. sketch_eps: float, range=(0,1], default=0.1
+        9. sketch_eps: float, range=(0,1], default=0.1
             we call sketch_eps is approximation factor.we use it to choose splitting candidates by following metric.
                 |r_k(s_{k,j}) - r_k(s_{k,j+1)| < sketch_eps
             where r_k:R→[0,∞] is the rank function defined on the paper of TianQi Chen.
@@ -70,6 +76,7 @@ class XGBModel(object):
                  n_estimator=100,
                  gamma=1,
                  Lambda=1,
+                 eta=0.1,
                  max_depth=3,
                  min_samples_split=3,
                  split_threshold=10,
@@ -78,6 +85,7 @@ class XGBModel(object):
         self.n_estimator = n_estimator
         self.gamma = gamma
         self.Lambda = Lambda
+        self.eta = eta
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
         self.split_threshold = split_threshold
@@ -118,6 +126,18 @@ class XGBModel(object):
         if Lambda < 0:
             raise ValueError
         self._Lambda = Lambda
+
+    @property
+    def eta(self):
+        return self._eta
+
+    @eta.setter
+    def eta(self, eta):
+        if not isinstance(eta, (int, float)):
+            raise TypeError
+        if eta <= 0:
+            raise ValueError
+        self._eta = eta
 
     @property
     def max_depth(self):
@@ -222,9 +242,9 @@ class XGBModel(object):
         if len(self.ensemble) == 0:
             return zeros(X.shape[0])
         # otherwise, return the sum of output of every base model.
-        res = 0
-        for base_model in self.ensemble:
-            res += base_model.predict(X)
+        res = self.ensemble[0].predict(X)
+        for base_model in self.ensemble[1:]:
+            res += self.eta * base_model.predict(X)
         return res
 
     def score(self, X, y):
