@@ -196,8 +196,8 @@ class BaseTree(object):
 
                 # iterate value in candidate values in above list obtained.
                 for i in range(len(candidate_values) - 1):
-                    # get rows of X satisfy the condition that r_k(s_{k,j}) < x_{ik} < r_k(s_{k,j+1)
-                    X_satisfy = X[candidate_values[i] <= X[candidate_feature]] \
+                    # get rows of X satisfy the condition that s_{k,j} < x_{ik} <= s_{k,j+1}
+                    X_satisfy = X[candidate_values[i] < X[candidate_feature]] \
                         .query("{} <= {}".format(candidate_feature, candidate_values[i + 1]))
                     G_l += X_satisfy["g"].sum()
                     H_l += X_satisfy["h"].sum()
