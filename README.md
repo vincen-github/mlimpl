@@ -49,6 +49,10 @@ Here is some brief infoimation about the main work in each folder.
 - KMeans++:
 
         Common unsupervised algorithm for cluster improved from kmeans.
+    
+- rejection_sampling:
+
+        Rejection sampling method.
   
 - l1/2(LHalf):
 
