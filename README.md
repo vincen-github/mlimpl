@@ -56,7 +56,7 @@ Here is some brief infoimation about the main work in each folder.
   
         10. l1/2(LHalf):
 
-        1/2 algorithm is a improved variant algorithm of lasso.
+                l1/2 algorithm is a improved variant algorithm of lasso.
                 it is a linear model as lasso but the optimization object of it is as follows
                             min loss = 1/2*||Y - Xβ|| + λ||β||_{1/2}         
                 Where the form of regular term ||β||_{1/2} as follows
