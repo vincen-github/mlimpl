@@ -10,23 +10,23 @@ Here is some brief infoimation about the main work in each folder.
 
 - Gan:
 
-    Generate handwritten digital pictures through Gan achieved by tensorflow1.
+        Generate handwritten digital pictures through Gan achieved by tensorflow1.
 
 - Cnn:
 
-    Recognize digital verification code through convolutional neural network achieved by tensorflow1.
+        Recognize digital verification code through convolutional neural network achieved by tensorflow1.
     
-    u can use it to solve the obstacle of the verification code to the automated crawler.
+        u can use it to solve the obstacle of the verification code to the automated crawler.
     
-    note that i apply the python code from web for generate verification code as training/testing dataset.
+        note that i apply the python code from web for generate verification code as training/testing dataset.
   
 - linear_model:
 
-    Linear Regression solved by analytical solution/gradient descent.
+        Linear Regression solved by analytical solution/gradient descent.
     
-    Ridge solved by analytical soulution/gradient descent/AdamOptimizer.
+        Ridge solved by analytical soulution/gradient descent/AdamOptimizer.
     
-    Lasso solved by coordinate descent/iterate ridge.
+        Lasso solved by coordinate descent/iterate ridge.
 
 - DecisionTree:
 
@@ -65,15 +65,21 @@ Here is some brief infoimation about the main work in each folder.
         1/2 algorithm is a improved variant algorithm of lasso.
     
         it is a linear model as lasso but the optimization object of it is as follows
+        
                     min loss = 1/2*||Y - Xβ|| + λ||β||_{1/2}
+                    
         Where the form of regular term ||β||_{1/2} as follows
-                    ||β||_{1/2} = Σβ_i^{1/2}
+        
+                        ||β||_{1/2} = Σβ_i^{1/2}
+                        
         i use iterate ridge method to solve this non-convex regularization framework.
+        
         the file named energy_predict.py is the application of this method in Energy Consumption Field of CNC Machine Tools used pyspark.
 
 - xgboost:
 
         eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
+        
         i implement the exact exact greedy algorithm/approximate algorithm for split finding in this package.
     
  
