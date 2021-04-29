@@ -9,9 +9,9 @@ u can obtain the specific usage details from the source code.
 Here is some brief infoimation about the main work in each folder.
 
 - Gan:
-    Generate handwritten digital pictures through Gan achieved by tensorflow1.
+        Generate handwritten digital pictures through Gan achieved by tensorflow1.
 
--Cnn:
+- Cnn:
     Recognize digital verification code through convolutional neural network achieved by tensorflow1.
     u can use it to solve the obstacle of the verification code to the automated crawler.
     note that i apply the python code from web for generate verification code as training/testing dataset.
