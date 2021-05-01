@@ -46,6 +46,6 @@ Here is some brief infoimation about the main work in each folder.
                 the file named energy_predict.py is the application of this method in Energy Consumption Field of CNC Machine Tools used pyspark.
         11. xgboost:
                 eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
-                i implement the exact exact greedy algorithm/approximate algorithm for split finding in this package.
+                i implement the exact greedy algorithm/approximate algorithm for split finding in this package.
 
  
