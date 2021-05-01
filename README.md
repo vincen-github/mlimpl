@@ -26,21 +26,16 @@ Here is some brief infoimation about the main work in each folder.
         5. NaiveBayes:
                 MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial distribution(priori of category).u need to ensure the incoming features are       categorical.
                 GaussianNB: same as above except priori distribution is Gaussian.it is implies that this method can handle continuous features/label.
-
         6. ann_by_matlab:
                 a simple artificial neural network achieved by matlab to distinguish the mnist digital dataset.
                 the code in floder contains artificial neural network implement by myself.
                 The other code file except file named ANN.m is to read mnist dataset to memory through matlab.This is not what I did by myself.
-
         7. SVM:
                 Support vector machine solved by sequential minimal optimization algorithm for classification task.
-
         8. KMeans++:
                 Common unsupervised algorithm for cluster improved from kmeans.
-    
         9. rejection_sampling:
                 Rejection sampling method.
-  
         10. l1/2(LHalf):
                 l1/2 algorithm is a improved variant algorithm of lasso.
                 it is a linear model as lasso but the optimization object of it is as follows
@@ -49,7 +44,6 @@ Here is some brief infoimation about the main work in each folder.
                                 ||β||_{1/2} = Σβ_i^{1/2}             
                 i use iterate ridge method to solve this non-convex regularization framework.
                 the file named energy_predict.py is the application of this method in Energy Consumption Field of CNC Machine Tools used pyspark.
-
         11. xgboost:
                 eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
                 i implement the exact exact greedy algorithm/approximate algorithm for split finding in this package.
