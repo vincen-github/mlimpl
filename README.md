@@ -24,7 +24,7 @@ Here is some brief infoimation about the main work in each folder.
                 Note that above two methods only support discrete features/labels.
                 Cart: CartRegressor to solve regression problem(i.e continuous label).this code can handle features whether continuous or discrete.
         5. NaiveBayes:
-                MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial distribution(priori of category).u need to ensure the incoming features are       categorical.
+                MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial distribution(priori of category).u need to ensure the incoming features are categorical.
                 GaussianNB: same as above except priori distribution is Gaussian.it is implies that this method can handle continuous features/label.
         6. ann_by_matlab:
                 a simple artificial neural network achieved by matlab to distinguish the mnist digital dataset.
