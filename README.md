@@ -2,7 +2,7 @@
 
 This Repository is some code which packages commonly used methods in machine learning.
 
-I will make subsequent updates to the code.
+I will make subsequent update.
 
 u can obtain the specific usage details from the source code.
 
