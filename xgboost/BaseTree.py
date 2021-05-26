@@ -16,6 +16,7 @@ class BaseTree(object):
     =========
     Base model in xgboost with tree form.
     it is similar to cart regressor except gain formula.
+
     ---------------------------------
 
     Attribute:
@@ -127,6 +128,11 @@ class BaseTree(object):
         # split current dataset by best_feature and best_value above
         left, right = self.split_dataset(X, y, best_feature, best_value)
 
+        # if left or right is empty set.return -self.G / (self.H + self.Lambda)
+        if left[0].shape[0] == 0 or right[0].shape[0] == 0:
+            self.tree = -self.G / (self.H + self.Lambda)
+            return self.tree
+
         # generate the root of tree
         # @denote that u can't revise following tree to self.tree,it will cause Recursion cannot be performed.
         tree = {best_feature: {}}
@@ -158,6 +164,7 @@ class BaseTree(object):
             G_l, H_l = 0, 0
             # if split_finding_strategy == 'exact'.we only need to sort the values of candidate feature.
             if self.split_finding_strategy == 'exact':
+                # it implies that u set the left branch condition as x_{jk} < split_value if u set ascending = Ture.
                 candidate_values = X[candidate_feature].drop_duplicates().sort_values(ascending=True)
                 # iterate candidate value of candidate feature
                 for candidate_value in candidate_values:
