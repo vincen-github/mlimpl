@@ -22,10 +22,13 @@ Here is some brief infoimation about the main work in each folder.
                 ID3: the algorithm to solve classification problem based on tree form.
                 C4.5: Improvement of above method.
                 Note that above two methods only support discrete features/labels.
-                Cart: CartRegressor to solve regression problem(i.e continuous label).this code can handle features whether continuous or discrete.
+                Cart: CartRegressor to solve regression problem(i.e continuous label).this code can handle features 
+                whether continuous or discrete.
         5. NaiveBayes:
-                MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial distribution(priori of category).u need to ensure the incoming features are categorical.
-                GaussianNB: same as above except priori distribution is Gaussian.it is implies that this method can handle continuous features/label.
+                MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial distribution(priori of category).
+                u need to ensure the incoming features are categorical.
+                GaussianNB: same as above except priori distribution is Gaussian.it is implies that this method can handle
+                continuous features/label.
         6. ann_by_matlab:
                 a simple artificial neural network achieved by matlab to distinguish the mnist digital dataset.
                 the code in floder contains artificial neural network implement by myself.
@@ -48,6 +51,7 @@ Here is some brief infoimation about the main work in each folder.
                 eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
                 i implement the exact greedy algorithm/approximate algorithm for split finding in this package.
         12. RandomForest:
-                A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
+                A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples
+                of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
 
  
