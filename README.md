@@ -32,7 +32,8 @@ Here is some brief infoimation about the main work in each folder.
         6. ann_by_matlab:
                 a simple artificial neural network achieved by matlab to distinguish the mnist digital dataset.
                 the code in floder contains artificial neural network implement by myself.
-                The other code file except file named ANN.m is to read mnist dataset to memory through matlab.This is not what I did by myself.
+                The other code file except file named ANN.m is to read mnist dataset to memory through matlab.
+                it came from other blog.
         7. SVM:
                 Support vector machine solved by sequential minimal optimization algorithm for classification task.
         8. KMeans++:
@@ -46,12 +47,15 @@ Here is some brief infoimation about the main work in each folder.
                 Where the form of regular term ||β||_{1/2} as follows
                                 ||β||_{1/2} = Σβ_i^{1/2}             
                 i use iterate ridge method to solve this non-convex regularization framework.
-                the file named energy_predict.py is the application of this method in Energy Consumption Field of CNC Machine Tools used pyspark.
+                the file named energy_predict.py is the application of this method in Energy Consumption Field of 
+                CNC Machine Tools used pyspark.
         11. xgboost:
-                eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
+                eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed 
+                by TianQi Chen.
                 i implement the exact greedy algorithm/approximate algorithm for split finding in this package.
         12. RandomForest:
-                A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples
+                A random forest classifier.A random forest is a meta estimator that fits a number of decision tree 
+                classifiers on various sub-samples
                 of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
 
  
