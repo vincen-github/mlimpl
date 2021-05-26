@@ -1,5 +1,7 @@
-from Cart import CartRegressor
+from Cart import CartRegressor, CartClassifier
+from sklearn.datasets import load_iris
 import pandas as pd
+import matplotlib.pyplot as plt
 import os
 
 import logging
@@ -19,44 +21,48 @@ if __name__ == "__main__":
     X = tips.drop("tip", axis=1, inplace=False)
     y = tips["tip"]
 
-    print(X.shape[0])
+    reg = CartRegressor(max_depth=7, min_samples_split=3, split_threshold=5)
+    logger.info(reg.gini(y))
 
-    feature_names = X.columns
+    reg.fit(X, y)
 
-    logger.info(feature_names)
+    reg.plot_tree()
 
-    cart_regressor = CartRegressor(min_samples=3, split_threshold=5)
-    logger.info(cart_regressor.gini(y))
 
-    # print(X["time"].drop_duplicates().sort_values())
+    logger.info(reg.predict(X))
 
-    # a, b = cart_regressor.split_dataset(X, y, "total_bill", 10)
-    #
-    # logger.info(a[0])
-    # logger.info(b[0].shape[0])
+    logger.info(reg.score(X, y))
 
-    # cart_regressor.feature_names = X.columns
-    # cart_regressor.used_features_and_values = []
-    # logger.info(cart_regressor.select_best_split(X, y))
-    #
-    # tup = ([1, 2, 3], [4, 5, 6])
-    # print(*tup)
-
-    cart_regressor.fit(X, y)
-
-    # cart_regressor.plot_tree()
-
-    # for i in range(X.shape[0]):
-    # print(i, cart_regressor.single_predict(X.iloc[i]))
-
-    logger.info(cart_regressor.predict(X))
-
-    logger.info(cart_regressor.score(X, y))
-
-    import matplotlib.pyplot as plt
 
     plt.figure(dpi=400)
-    plt.plot(cart_regressor.predict(X))
+    plt.plot(reg.predict(X))
     plt.plot(y)
+    plt.show()
+
+
+    iris = load_iris()
+
+    X = pd.DataFrame(iris['data'], columns=iris["feature_names"])
+    y = iris['target']
+
+    clf = CartClassifier(max_depth=7,
+                         min_samples_split=5,
+                         split_threshold=0.01
+                         )
+
+    clf.fit(X, y)
+
+    score = clf.score(X, y)
+    print(score)
+
+    clf.plot_tree()
+
+    y_pred = clf.predict(X)
+
+    plt.figure(dpi=400)
+    ax = plt.gca()
+    ax.plot(y, c='red', label='true')
+    ax.plot(y_pred, c='green', label='pred')
+    plt.legend()
     plt.show()
 

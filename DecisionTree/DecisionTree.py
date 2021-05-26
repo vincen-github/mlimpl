@@ -11,6 +11,8 @@
 import pandas as pd
 import treePlotter
 import numpy as np
+
+
 # %%
 class DecisionClassifier(object):
     """
@@ -60,7 +62,8 @@ class DecisionClassifier(object):
             clf.fit(X, y, show_graph = True)
             print(clf.tree)
     """
-    def __init__(self, max_depth = 7, criterion = "id3", eps = 1e-2):
+
+    def __init__(self, max_depth=7, criterion="id3", eps=1e-2):
         # 异常检测
         if not isinstance(max_depth, int) or not max_depth > 0:
             raise Exception("max_depth need to bigger than 0 and the type of it must be int.Please check it.")
@@ -72,7 +75,7 @@ class DecisionClassifier(object):
         self.criterion = criterion
         self.eps = eps
 
-    def fit(self, X, y, show_graph = False):
+    def fit(self, X, y, show_graph=False):
         """
         fit():
             parameters:
@@ -86,16 +89,15 @@ class DecisionClassifier(object):
         # 从X中获取候选特征集
         all_features = list(X.columns)
         # 获取所有feature的所有可能取值以用于后面生成决策树的分支
-        self.__all_feature_dict = dict([( feature, X[feature].unique() ) for feature in all_features])
+        self.__all_feature_dict = dict([(feature, X[feature].unique()) for feature in all_features])
         # 建树
-        self.tree = self.__createTree(X = X, y = y, candidate_features = all_features)
-        
+        self.tree = self.__createTree(X=X, y=y, candidate_features=all_features)
+
         # 若show_graph == True:
         if show_graph == True:
             treePlotter.createPlot(self.tree)
-        
 
-    def __createTree(self, X, y, candidate_features, cur_depth = 1):
+    def __createTree(self, X, y, candidate_features, cur_depth=1):
         """
         __createTree():
             Recursively call itself to generate classification tree.
@@ -118,10 +120,10 @@ class DecisionClassifier(object):
         # 若现有树的cur_depth > max_depth,则将(X, y)中实例数最大的类作为该结点的类返回(树的预剪枝)
         if cur_depth >= self.max_depth:
             return y.iloc[np.argmax(y.value_counts())]
-        #若数据集中的样本全部属于同一类别,将y中的label返回.
+        # 若数据集中的样本全部属于同一类别,将y中的label返回.
         if y.unique().shape[0] == 1:
             return y.iloc[0]
-        #若候选属性集为空,则T为单结点树,并将(X, y)中实例数最大的类作为该结点的类返回
+        # 若候选属性集为空,则T为单结点树,并将(X, y)中实例数最大的类作为该结点的类返回
         if candidate_features == []:
             return y.iloc[np.argmax(y.value_counts())]
         # 否则,选择纯度增益最大的的特征,
@@ -135,18 +137,20 @@ class DecisionClassifier(object):
         # 使用self.all_feature_dict划分X
         for best_feature_value in self.__all_feature_dict[best_split_feature]:
             # 获取best_split_feature == best_feature_value的所有样本的index
-            index = X[ X[best_split_feature] == best_feature_value ].index
+            index = X[X[best_split_feature] == best_feature_value].index
 
             # 若其中一个结点的样本数为0，此时将该结点的output置为其父结点中(X, y)中实例数最大的类作为该结点的类.
             if y[index].shape[0] == 0:
                 tree[best_split_feature][best_feature_value] = y.iloc[np.argmax(y.value_counts())]
-            
-            #若不为0,递归建树,同时将candidate_features浅拷贝一份,记为candidate_features_copy,
-            #将best_feature从其中删除,用于下面的递归建树,这样做便可以在左右子树重复使用相同的特征划分结点。
+
+            # 若不为0,递归建树,同时将candidate_features浅拷贝一份,记为candidate_features_copy,
+            # 将best_feature从其中删除,用于下面的递归建树,这样做便可以在左右子树重复使用相同的特征划分结点。
             else:
                 candidate_features_copy = candidate_features.copy()
                 candidate_features_copy.remove(best_split_feature)
-                tree[best_split_feature][best_feature_value] = self.__createTree(X = X.loc[index], y = y[index], candidate_features = candidate_features_copy, cur_depth = cur_depth + 1)
+                tree[best_split_feature][best_feature_value] = self.__createTree(X=X.loc[index], y=y[index],
+                                                                                 candidate_features=candidate_features_copy,
+                                                                                 cur_depth=cur_depth + 1)
         return tree
 
     def __select_best_split_feature(self, X, y, candidate_features):
@@ -165,25 +169,25 @@ class DecisionClassifier(object):
         if self.criterion == "id3":
             # 计算初始数据集的纯度
             init_purity = self.__calculate_purity(y)
-            #purity_gain用于存储不同feature的纯度增益
+            # purity_gain用于存储不同feature的纯度增益
             purity_gain = {}
             # 遍历X的所有特征
             for feature in candidate_features:
                 # purity_fix_feature用于总和各组的purity
                 purity_fix_feature = 0
                 # 按feature分组
-                groups = y.groupby(X[feature], axis = 0)
+                groups = y.groupby(X[feature], axis=0)
                 # 遍历每一个组
                 for name, group in groups:
-                        # 计算该组的纯度后,不要忘记乘以改组样本数占y样本数的比例
-                        purity_fix_feature += (group.shape[0] / y.shape[0])*self.__calculate_purity(group)
-                #计算纯度增益
+                    # 计算该组的纯度后,不要忘记乘以改组样本数占y样本数的比例
+                    purity_fix_feature += (group.shape[0] / y.shape[0]) * self.__calculate_purity(group)
+                # 计算纯度增益
                 purity_gain[feature] = init_purity - purity_fix_feature
 
             # 将纯度增益转化为Series类型
             pruity_gain = pd.Series(purity_gain)
             # 返回纯度增益最大的feature name
-            return pruity_gain.index[np.argmax(pruity_gain)] , pruity_gain.max()
+            return pruity_gain.index[np.argmax(pruity_gain)], pruity_gain.max()
 
         # 若准则设置为c4.5
         if self.criterion == "c4.5":
@@ -192,27 +196,26 @@ class DecisionClassifier(object):
             purity_ratio_gain = {}
             # 遍历X的所有特征
             for feature in candidate_features:
-                #purity_ratio_fix_feature用于总和各组的purity_ratio
+                # purity_ratio_fix_feature用于总和各组的purity_ratio
                 purity_ratio_fix_feature = 0
                 # feature_purity 用于存储特征的增益
                 feature_purity = 0
                 #  按feature分组
-                groups = y.groupby(X[feature], axis = 0)
+                groups = y.groupby(X[feature], axis=0)
                 # 遍历每一个组
                 for name, group in groups:
                     # 计算改组的纯度后,不要忘记乘以改组样本数占y样本数的比例
-                    purity_ratio_fix_feature += (group.shape[0] / y.shape[0])*self.__calculate_purity(group)
+                    purity_ratio_fix_feature += (group.shape[0] / y.shape[0]) * self.__calculate_purity(group)
                     # H(A) = -Σ(|D_k|/|D|)*(log2(|D_k|/|D|))
                     feature_purity += group.shape[0] / y.shape[0]
                 # 计算纯度增益率,即信息增益除以H(A).
                 # A为feature
                 purity_ratio_gain[feature] = (init_purity_ratio - purity_ratio_fix_feature) / feature_purity
-            
+
             # 将纯度增益转化为Series类型
             pruity_ratio_gain = pd.Series(purity_ratio_gain)
             # 返回纯度增益最大的feature name
-            return pruity_ratio_gain.index[np.argmax(pruity_ratio_gain)] , pruity_ratio_gain.max()
-
+            return pruity_ratio_gain.index[np.argmax(pruity_ratio_gain)], pruity_ratio_gain.max()
 
     def __calculate_purity(self, y):
         """
@@ -220,11 +223,11 @@ class DecisionClassifier(object):
             dtype: Series
         """
         # 计算各类别的概率
-        prob =  y.value_counts()
-        #若criterion为id3或c4.5,则计算信息熵
+        prob = y.value_counts()
+        # 若criterion为id3或c4.5,则计算信息熵
         if self.criterion == "id3" or "c4.5":
             # 计算信息熵
-            return prob.apply(lambda x: -(x/y.shape[0])*np.log2(x/y.shape[0])).sum()
+            return prob.apply(lambda x: -(x / y.shape[0]) * np.log2(x / y.shape[0])).sum()
 
     def __predict_single_sample(self, x):
         """
@@ -241,8 +244,6 @@ class DecisionClassifier(object):
             # 通过特征查找下一步需要搜索的子树
             tree = list(tree.values())[0].get(x[feature])
         return tree
-            
-            
 
     def predict(self, X):
         """
@@ -256,8 +257,8 @@ class DecisionClassifier(object):
         predict_label = []
         for _, row in X.iterrows():
             predict_label.append(self.__predict_single_sample(row))
-        return pd.Series(predict_label, index = X.index)
-    
+        return pd.Series(predict_label, index=X.index)
+
     def score(self, X, y):
         """
         score():compute the accuracy of input X and y.the formula of accuracy as following
@@ -271,4 +272,76 @@ class DecisionClassifier(object):
         y_predict = self.predict(X)
         return (y_predict == y).sum() / y.shape[0]
 
+    def pruning(self, Xval, yval, alpha=1):
+        """
+        pruning():post pruning to resistant overfitting
+            criterion:
+                C_alpha(T) = Σ(N_t*H_t(T)) + alpha*|T|
+                    The sum index is t.
+                where t is leaf node of tree and |T| is number of it.N_t is the number of samples which is in leaf-node t.
+                and in above formula. H_t(T) is calculated by follows:
+                    H_(T) = -Σ(N_{tk}/N_t)log((N_{tk}/N_t))
+                The sum index is k.
+            parameters:
+                1.Xval, yval:
+                    Data set used to calculate structural risk.
+                    Xval refers to X of validation set.the same as yval.
+                    dtype: array-like
+                2.alpha : super parameter of post pruning
+                    dtype: float    range:[0,∞)
+        """
+        # 异常检测
+        if not isinstance(alpha, (float, int)):
+            raise Exception("Type of alpha is not int or float,please check it.")
+        if alpha < 0:
+            raise Exception("alpha requires a non-negative real number.")
+        # 将validation set转化为DataFrame类型
+        Xval = pd.DataFrame(Xval)
+        yval = pd.DataFrame(yval)
 
+        # 初始化子树森林为原始树列表
+        subtree = [self.tree]
+        while not self.isleaftree(subtree):
+            # 遍历每一个子树
+            for st in subtree:
+                # 判断subtree列表中各个元素是否是输出结点类型。若是则从subtree中删除.
+                #  若不是字典类型,则说明其为输出结点类型
+                if not isinstance(st, dict):
+                    subtree.remove(st)
+                # 否则令subtree为其子树森林
+                subtree = self.get_subtree(st)
+        print(subtree)
+
+    def get_subtree(self, tree):
+        """
+        get_subtree():
+            Used to get all subtrees of a tree.
+            parameters:
+                tree:the tree which you want to get it subtree.
+                dtype : dict
+            return: the list of subtree.
+        """
+        # 获取子树根结点的feature
+        root_feature = list(tree.keys())[0]
+        """
+        获取子树字典
+        利用root_feature索引每个子树的
+        {feature_value1: subtree1, featureuw_value2 : subtree2,feature_value3 : subtree3}字典, 
+        使用values()方法将subtree1,subtree2,subtree3整合至一个列表中。
+        但由于其为dict_values类型,难以操作,将其强制转化为list类型。
+        返回值应为一维list,角标用于区分不同的子树。
+        """
+        return list(tree[root_feature].values())
+
+    def isleaftree(self, tree_list):
+        """
+        isleaftree():
+            A node tree refers to a tree whose subtrees are all output nodes.
+            Determine whether the children of the incoming tree are all leaf nodes, if so, it can be used to determine whether to post pruning.
+        parameters:
+            1. tree_list : The list of dictionary structure tree
+        """
+        # 因要求传入的字典是一颗完整的树,可直接通过如下方法得到存放子树的列表
+        isleaf = [not isinstance(st, dict) for st in tree_list]
+        # 若所有子树都为单结点树,返回True,否则返回为False
+        return all(isleaf)
