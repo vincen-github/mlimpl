@@ -47,5 +47,7 @@ Here is some brief infoimation about the main work in each folder.
         11. xgboost:
                 eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
                 i implement the exact greedy algorithm/approximate algorithm for split finding in this package.
+        12. RandomForest:
+                A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
 
  
