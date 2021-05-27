@@ -29,11 +29,11 @@ Here is some brief infoimation about the main work in each folder.
                 handle features 
                 whether continuous or discrete.
         5. NaiveBayes:
-                MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial distribution
-                (priori of category).
+                MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial 
+                distribution (priori of category).
                 u need to ensure the incoming features are categorical.
-                GaussianNB: same as above except priori distribution is Gaussian.it is implies that this
-                method can handle
+                GaussianNB: same as above except priori distribution is Gaussian.it is implies that
+                this method can handle
                 continuous features/label.
         6. ann_by_matlab:
                 a simple artificial neural network achieved by matlab to distinguish the mnist digital 
@@ -43,8 +43,8 @@ Here is some brief infoimation about the main work in each folder.
                 matlab.
                 it came from other blog.
         7. SVM:
-                Support vector machine solved by sequential minimal optimization algorithm for classification
-                task.
+                Support vector machine solved by sequential minimal optimization algorithm for 
+                classification task.
         8. KMeans++:
                 Common unsupervised algorithm for cluster improved from kmeans.
         9. rejection_sampling:
@@ -56,16 +56,16 @@ Here is some brief infoimation about the main work in each folder.
                 Where the form of regular term ||β||_{1/2} as follows
                                 ||β||_{1/2} = Σβ_i^{1/2}             
                 i use iterate ridge method to solve this non-convex regularization framework.
-                the file named energy_predict.py is the application of this method in Energy Consumption Field
-                of 
-                CNC Machine Tools used pyspark.
+                the file named energy_predict.py is the application of this method in Energy 
+                Consumption Field of CNC Machine Tools used pyspark.
         11. xgboost:
-                eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed 
-                by TianQi Chen.
-                i implement the exact greedy algorithm/approximate algorithm for split finding in this package.
+                eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting
+                system proposed by TianQi Chen.
+                i implement the exact greedy algorithm/approximate algorithm for split finding in this
+                package.
         12. RandomForest:
-                A random forest classifier.A random forest is a meta estimator that fits a number of decision tree 
-                classifiers on various sub-samples
-                of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
+                A random forest classifier.A random forest is a meta estimator that fits a number of
+                decision tree classifiers on various sub-samples of the dataset and uses averaging to
+                improve the predictive accuracy and control over-fitting.
 
  
