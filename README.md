@@ -26,8 +26,9 @@ Here is some brief infoimation about the main work in each folder.
                 C4.5: Improvement of above method.
                 Note that above two methods only support discrete features/labels.
                 Cart: CartRegressor to solve regression problem(i.e continuous label).this code can 
-                handle features 
-                whether continuous or discrete.
+                handle features whether continuous or discrete.
+                On the other hand.there exists some ipynb file implement decision tree which isn't
+                encapsulated as class.
         5. NaiveBayes:
                 MultinomialNB: Naive Bayes to solve discrete labels that obey multinomial 
                 distribution (priori of category).
