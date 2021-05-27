@@ -68,5 +68,5 @@ Here is some brief infoimation about the main work in each folder.
                 A random forest classifier.A random forest is a meta estimator that fits a number of
                 decision tree classifiers on various sub-samples of the dataset and uses averaging to
                 improve the predictive accuracy and control over-fitting.
-
- 
+        13. GMM:
+                Gaussian Mixture Model(single dimension) solved by EM.
