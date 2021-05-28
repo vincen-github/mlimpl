@@ -1,9 +1,7 @@
 # mlimpl(Machine Learning Implementation)
-<div align=center>
-<img src="https://github.com/vincen-github/mlimpl/blob/master/pic/logo.jpeg" width="400" height="300" alt="mlimpl">
+<img src="https://github.com/vincen-github/mlimpl/blob/master/pic/logo.jpeg" width="400" height="400" alt="mlimpl">
 
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen)  ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: 3.6|3.7|3.8|3.9 (shields.io)](https://img.shields.io/badge/python-3.6%7C3.7%7C3.8%7C3.9-blue)
-</div>
 
 ## Introduce
 This Repository gathered some Implementation code which encaps-ulates commonly used methods in the field of machine learning based on Numpy and Pandas.u can implement commonly used machine learning algorithms by referring to this repository to deepen your understanding of it.
