@@ -1,4 +1,4 @@
-# mlimpl(Machine Learning Implementation)
+# mlimpl
 <img src="https://github.com/vincen-github/mlimpl/blob/master/pic/logo.jpeg" width="400" height="400" alt="mlimpl">
 
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen)  ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: 3.6|3.7|3.8|3.9 (shields.io)](https://img.shields.io/badge/python-3.6%7C3.7%7C3.8%7C3.9-blue)
