@@ -52,8 +52,7 @@ as u saw. it is same as using sklearn.
 	- Rejection sampling method.
 - l1/2(LHalf):
 	- l1/2 algorithm is a improved variant algorithm of lasso.it is a linear model as lasso but the optimization object of it is as follows
-	
-		                        min loss = 1/2 ‖Y - Xβ‖ + λ‖β‖_{1/2}
+		                        		min loss = 1/2 ‖Y - Xβ‖ + λ‖β‖_{1/2}
 	- i use iterate ridge method to solve this non-convex regularization framework.
 	- the file named energy_predict.py is the application of this method in Energy Consumption Field of CNC Machine Tools used pyspark.
 - xgboost:
