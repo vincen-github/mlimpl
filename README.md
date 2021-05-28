@@ -26,7 +26,7 @@ as u saw. it is same as using sklearn.
 - Cnn:
 	- Recognize digital verification code through convolutional neural network achieved by tensorflow1.
 - linear_model:
-  - Linear Regression solved by analytical solution/gradient descent.
+  - Linear Regression solved by analytical solution/gradient descent/AdamOptimizer.
   - Ridge solved by analytical soulution/gradient descent /AdamOptimizer.
   - Lasso solved by coordinate descent/iterate ridge.
 - DecisionTree:
