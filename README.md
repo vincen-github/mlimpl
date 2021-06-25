@@ -53,8 +53,7 @@ as u saw. it is same as using sklearn.
 	- Rejection sampling method.
 - l1/2(LHalf):
 	- l1/2 algorithm is a improved variant algorithm of lasso.it is a linear model as lasso but the optimization object of it is as follows
-
-		                        		min loss = 1/2 ‖Y - Xβ‖ + λ‖β‖_{1/2}
+		                   	<p align="center">min loss = 1/2 ‖Y - Xβ‖ + λ‖β‖_{1/2}</p>
 	- i use iterate ridge method to solve this non-convex regularization framework.
 	- the file named energy_predict.py is the application of this method in Energy Consumption Field of CNC Machine Tools used pyspark.
 - xgboost:
@@ -64,3 +63,6 @@ as u saw. it is same as using sklearn.
 	- A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
 - GMM:
 	- Gaussian Mixture Model(single dimension) solved by EM.
+- MCMC：
+	Markov Chain Monte Carlo.It contains Metropolis–Hastings Algorithm and Gibbs Sampling.
+	
