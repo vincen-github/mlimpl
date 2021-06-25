@@ -64,5 +64,5 @@ as u saw. it is same as using sklearn.
 - GMM:
 	- Gaussian Mixture Model(single dimension) solved by EM.
 - MCMC：
-	Markov Chain Monte Carlo.It contains Metropolis–Hastings Algorithm and Gibbs Sampling.
+	- Markov Chain Monte Carlo.It contains Metropolis–Hastings Algorithm and Gibbs Sampling.
 	
