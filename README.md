@@ -67,5 +67,5 @@ as u saw. it is same as using sklearn.
 	- Markov Chain Monte Carlo.It contains Metropolis–Hastings Algorithm and Gibbs Sampling.
 - High Confidence Predictions for Unrecognizable Images:
 	- A simple demo about adversarial examples.
-	- ReferenceAnh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436
+	- Reference: Anh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436
 	
