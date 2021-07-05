@@ -5,7 +5,7 @@
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen) ![email](https://img.shields.io/badge/email-vincen.nwu.%40gmail.com-red) [![zhihu](https://img.shields.io/badge/zhihu-https%3A%2F%2Fwww.zhihu.com%2Fpeople%2Fvincen--43--89-blue)](https://www.zhihu.com/people/vincen-43-89)  ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: 3.6|3.7|3.8|3.9 (shields.io)](https://img.shields.io/badge/python-3.6%7C3.7%7C3.8%7C3.9-blue) ![NumPy version](https://img.shields.io/badge/NumPy-%3E%3D1.19.2-brightgreen) ![Pandas version](https://img.shields.io/badge/Pandas-%3E%3D1.1.3-brightgreen) 
 
 ## Introduce
-This Repository gathered some Implementation code which encaps-ulates commonly used methods in the field of machine learning based on Numpy and Pandas.u can implement commonly used machine learning algorithms by referring to this repository to deepen your understanding of it.
+This Repository gathered some Implementation code which encapsulates commonly used methods in the field of machine learning based on Numpy and Pandas.u can implement commonly used machine learning algorithms by referring to this repository to deepen your understanding of it.
 ## trait
 - Detailed documentation and comment.
 - guidance for error-prone and difficult points.
