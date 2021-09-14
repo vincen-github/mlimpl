@@ -44,7 +44,7 @@ as u saw. it is same as using sklearn.
   - u need to ensure the incoming features are categorical.
                 GaussianNB: same as above except priori distribution is Gaussian.it is implies that this method can handle continuous features/label.
 - ann_by_matlab:
-  - a simple artificial neural network achieved by matlab to distinguish the mnist digital dataset.the code in floder contains artificial neural network implement by myself.The other code file except file named ANN.m is to read mnist dataset to memory throughmatlab.it came from other blog.
+  - a simple artificial neural network achieved by matlab to distinguish the mnist digital dataset.the code in floder contains artificial neural network implement by myself.The other code file except file named ANN.m is to read mnist dataset to memory through matlab.it came from other blog.
  - SVM:
 	- Support vector machine solved by sequential minimal optimization algorithm for classification task.
 - KMeans++:
