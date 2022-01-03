@@ -80,24 +80,25 @@ it is same as using sklearn as u saw.
   		$$
 		  \min_{j,s}\Big[\min_{c_1}\sum_{x_i\in R_1(j,s)}(y_i - c_1)^2 + \min_{c_2}\sum_{x_i \in R_2(j,s)}(y_i - c_2)^2\Big]
 		$$
-    - ***There exists some decision tree implementation in ipynb file,which isn't encapsulated as class.For more details, please refer to 《统计学习方法》-李航.***
+		- For more details, please refer to *统计学习方法——李航*.
+    - ***There exists some decision tree implementation in ipynb file,which isn't encapsulated as class.***
 - **3. NaiveBayes**
 	- MultinomialNB
     	-  Naive Bayes to solve discrete labels whose priori obey multinomial distribution.
          - U need to ensure the incoming features are discrete that ensure this implementation effective.
-       -  ***For more details refer to 《统计学习方法》-李航.***
+       -  For more details refer to *统计学习方法—李航*.
     - GaussianNB
         -  Simalar mehtod as above but priori and likelihood are obey Gaussian.This implies that this method can handle continuous features/label.
-        -  ***For more details refer to 《机器学习》-周志华.***
+        -  For more details refer to *机器学习-周志华*.
  - **4. SVM**
 	- Support vector machine solved by sequential minimal optimization algorithm for classification task.
 	- Reference:
-    	- [1] ***John Platt. Sequential minimal optimization: A fast algorithm for training support vector machines. Technical Report MSR-TR-98-14, Microsoft, April 1998.***
-    	- [2] ***统计学习方法-李航.***
+    	- [1] *John Platt. Sequential minimal optimization: A fast algorithm for training support vector machines. Technical Report MSR-TR-98-14, Microsoft, April 1998.*
+    	- [2] *统计学习方法-李航*.
 
 - **5. KMeans++**
 	 - Common unsupervised algorithm for cluster improved from kmeans.
-    - ***For more details refer to KMeans documentation in sklearn.***
+    - *For more details refer to KMeans documentation in sklearn.*
 - **6. rejection_sampling**
 	- Rejection sampling method.A effective method to sample from a complex distribution.
 - **7. l1/2**
@@ -105,10 +106,11 @@ it is same as using sklearn as u saw.
 		$$
 			\min_{\theta}L(\theta) = \min_\theta\frac{1}{2}\Vert Y - X\theta\Vert_2^2 + λ\Vert\theta\Vert_{1/2}
 		$$
-	- Similar with the method for solveing lasso(iterated ridge regression).The way for solving this non-convex regularization framework is to transform it to iterated lasso/ridge regression as below.
+    	- Similar with the method for solveing lasso(iterated ridge regression).The way for solving this non-convex regularization framework is to transform it to iterated lasso/ridge regression as below.
 	$$
 		\vert\theta_i\vert ^ {\frac{1}{2}} \approxeq \frac{\vert\theta_i\vert}{\quad\vert\theta_i\vert^\frac{1}{2}}
 	$$
+		- Reference: *Xu, Z., Chang, X., Xu, F., & Zhang, H. (2012). L1/2 regularization: a thresholding representation theory and a fast solver. IEEE transactions on neural networks and learning systems, 23(7), 1013–1027. https://doi.org/10.1109/TNNLS.2012.2197412*
 	- the file named energy_predict.py is the distributed application on Energy Consumption Field of CNC Machine Tools.Distributed platform using here is Spark.
 - **8. xgboost**
 	- eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.More detail refer to ***Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree boosting system. CoRR,abs/1603.02754, 2016.***
