@@ -36,7 +36,7 @@ it is same as using sklearn as u saw.
     - The contents in this floder are implemented by myself expect the program which is for reading mnist dataset to memory.
 - **High Confidence Predictions for Unrecognizable Images**
 	- A simple demo about adversarial examples.
-	- Reference: ***Anh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436.***
+	- Reference: *Anh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436.*
   
 ***2. Traditional Machine Learning***
 -   **1. linear_model**
@@ -80,7 +80,7 @@ it is same as using sklearn as u saw.
   		$$
 		  \min_{j,s}\Big[\min_{c_1}\sum_{x_i\in R_1(j,s)}(y_i - c_1)^2 + \min_{c_2}\sum_{x_i \in R_2(j,s)}(y_i - c_2)^2\Big]
 		$$
-		- For more details, please refer to *统计学习方法——李航*.
+		- For more details, please refer to *统计学习方法—李航*.
     - ***There exists some decision tree implementation in ipynb file,which isn't encapsulated as class.***
 - **3. NaiveBayes**
 	- MultinomialNB
@@ -89,12 +89,12 @@ it is same as using sklearn as u saw.
        -  For more details refer to *统计学习方法—李航*.
     - GaussianNB
         -  Simalar mehtod as above but priori and likelihood are obey Gaussian.This implies that this method can handle continuous features/label.
-        -  For more details refer to *机器学习-周志华*.
+        -  For more details refer to *机器学习—周志华*.
  - **4. SVM**
 	- Support vector machine solved by sequential minimal optimization algorithm for classification task.
 	- Reference:
     	- [1] *John Platt. Sequential minimal optimization: A fast algorithm for training support vector machines. Technical Report MSR-TR-98-14, Microsoft, April 1998.*
-    	- [2] *统计学习方法-李航*.
+    	- [2] *统计学习方法—李航*.
 
 - **5. KMeans++**
 	 - Common unsupervised algorithm for cluster improved from kmeans.
@@ -113,8 +113,9 @@ it is same as using sklearn as u saw.
 		- Reference: *Xu, Z., Chang, X., Xu, F., & Zhang, H. (2012). L1/2 regularization: a thresholding representation theory and a fast solver. IEEE transactions on neural networks and learning systems, 23(7), 1013–1027. https://doi.org/10.1109/TNNLS.2012.2197412*
 	- the file named energy_predict.py is the distributed application on Energy Consumption Field of CNC Machine Tools.Distributed platform using here is Spark.
 - **8. xgboost**
-	- eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.More detail refer to ***Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree boosting system. CoRR,abs/1603.02754, 2016.***
-	- i have implemented the exact greedy and approximate algorithm for split finding.
+	- eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
+        - i have implemented the exact greedy and approximate algorithm for split finding.
+    	- Reference:*Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree boosting system. CoRR,abs/1603.02754, 2016.*
 - ***9. RandomForest***
 	- A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
 - ***10. GMM***
