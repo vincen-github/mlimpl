@@ -51,7 +51,7 @@ it is same as using sklearn as u saw.
       - Coordinate Descent.
       - Iterated Ridge Regression.
         - using following approximation of *L1* norm to tranform lasso to iterated Ridge quesition.
-      - Reference: *Mark Schmidt. Least squares optimization with l1-norm regularization. CS542B Project Report,504:195–221, 2005.*
+        - Reference: *Mark Schmidt. Least squares optimization with l1-norm regularization. CS542B Project Report,504:195–221, 2005.*
 -   **2. DecisionTree**
     - ID3
       - Using information gain as criterion of buliding tree.
