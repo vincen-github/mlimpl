@@ -1,6 +1,6 @@
 # mlimpl
 ### Machine Learning Implementation
-<img src="./pic/logo.jpg" width="300" height="300" alt="mlimpl">
+<img src="./pic/logo.jpg" width="480" height="300" alt="mlimpl">
 
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen) ![email](https://img.shields.io/badge/email-vincen.nwu%40gmail.com-red) ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: >= 3.6 (shields.io)](https://img.shields.io/badge/python-%3E%3D3.6-blue) ![NumPy version](https://img.shields.io/badge/NumPy-%3E%3D1.19.2-brightgreen) ![Pandas version](https://img.shields.io/badge/Pandas-%3E%3D1.1.3-brightgreen)
 
