@@ -1,16 +1,6 @@
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
 # mlimpl
 ### Machine Learning Implementation
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-<img src="./pic/logo.jpg" width="480" height="300" alt="mlimpl">
+<img src="./pic/logo.jpg" width="400" height="300" alt="mlimpl">
 
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen) ![email](https://img.shields.io/badge/email-vincen.nwu%40gmail.com-red) ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: >= 3.6 (shields.io)](https://img.shields.io/badge/python-%3E%3D3.6-blue) ![NumPy version](https://img.shields.io/badge/NumPy-%3E%3D1.19.2-brightgreen) ![Pandas version](https://img.shields.io/badge/Pandas-%3E%3D1.1.3-brightgreen)
 
@@ -52,13 +42,9 @@ it is same as using sklearn as u saw.
 -   **1. linear_model**
     - Linear Regression
         - Analytical solution.
-			$$
-				\theta^* =(X^TX)^{-1}X^TY
-			$$
+  			<center><img src="./pic/linear_reg_formula.png" width="180" height="30"><center>
         - Gradient Descent.
-			$$
-			\theta_{t+1} = \theta_t - \lambda \nabla_{\theta}L(\theta)
-			$$
+  			<center><img src="./pic/gradient_dec_formula.png" width="180" height="30"><center>
         - AdamOptimizer.
           - Reference: *Sebastian Ruder. An overview of gradient descent optimization algorithms. CoRR, abs/1609.04747,2016.*
     - Ridge
@@ -67,29 +53,19 @@ it is same as using sklearn as u saw.
       - Coordinate Descent.
       - Iterated Ridge Regression.
         - using following approximation of $\ell_1$ norm to tranform lasso to iterated Ridge quesition.
-		$$
-		\vert\theta_i\vert \approxeq \frac{\theta_i^2}{\vert\theta_i\vert}
-		$$
+				<center><img src="./pic/iterated_ridge_formula.png" width="100" height="50"><center>
 		- Reference: *Mark Schmidt. Least squares optimization with l1-norm regularization. CS542B Project Report,504:195–221, 2005.*
 -   **2. DecisionTree**
     - ID3
       - Using information gain as criterion of buliding tree,whose formulaes are
-		$$
-			g(D, A)	= H(D) - H(D\vert A) \\
-			H(D)= -\sum_{k=1}^K\frac{\vert C_k\vert}{\vert D\vert}log_2\frac{\vert C_k\vert}{\vert D\vert} \\
-			H(D\vert A) = -\sum_{i=1}^n\frac{\vert D_i\vert}{\vert D\vert}H(D_i)
-		$$
+				<center><img src="./pic/id3_formula.png" width="230" height="150"><center>
     - C4.5
   		- Improvement of above method.Change the criterion to information gain ratio which has the following form
-  		$$
-		  g_R(D,A) = \frac{g(D,A)}{H_A(D)}
-  		$$
+  				<center><img src="./pic/c4.5_formula.png" width="150" height="45"><center>
       - ***Note that above two implementation only support discrete features/labels.***
 	- Cart
     	-  CartRegressor is to solve regression problem.This implementation can handle both continuous and discrete feature.Intrinsical optimal question is
-  		$$
-		  \min_{j,s}\Big[\min_{c_1}\sum_{x_i\in R_1(j,s)}(y_i - c_1)^2 + \min_{c_2}\sum_{x_i \in R_2(j,s)}(y_i - c_2)^2\Big]
-		$$
+				<center><img src="./pic/cart_formula.png" width="400" height="70"><center>
 		- For more details, please refer to *统计学习方法—李航*.
     - ***There exists some decision tree implementation in ipynb file,which isn't encapsulated as class.***
 - **3. NaiveBayes**
@@ -113,13 +89,10 @@ it is same as using sklearn as u saw.
 	- Rejection sampling method.A effective method to sample from a complex distribution.
 - **7. l1/2**
 	- l1/2 algorithm is a improved variant algorithm of lasso. it is a linear model as lasso but the optimization object of it is
-		$$
-			\min_{\theta}L(\theta) = \min_\theta\frac{1}{2}\Vert Y - X\theta\Vert_2^2 + λ\Vert\theta\Vert_{1/2}
-		$$
-    	- Similar with the method for solveing lasso(iterated ridge regression).The way for solving this non-convex regularization framework is to transform it to iterated lasso/ridge regression as below.
-	$$
-		\vert\theta_i\vert ^ {\frac{1}{2}} \approxeq \frac{\vert\theta_i\vert}{\quad\vert\theta_i\vert^\frac{1}{2}}
-	$$
+			<center><img src="./pic/lhalf_formula_1.png" width="280" height="50"><center>
+    	- Similar with the method for solveing lasso, i.e., iterated ridge regression.The way for solving this non-convex regularization framework is to transform it to iterated lasso or ridge regression as below. 
+    		<center><img src="./pic/lhalf_formula_2.png" width="110" height="55"><center>
+
 		- Reference: *Xu, Z., Chang, X., Xu, F., & Zhang, H. (2012). L1/2 regularization: a thresholding representation theory and a fast solver. IEEE transactions on neural networks and learning systems, 23(7), 1013–1027. https://doi.org/10.1109/TNNLS.2012.2197412*
 	- the file named energy_predict.py is the distributed application on Energy Consumption Field of CNC Machine Tools.Distributed platform using here is Spark.
 - **8. xgboost**
