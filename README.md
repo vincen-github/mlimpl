@@ -1,5 +1,6 @@
 # mlimpl
 ### Machine Learning Implementation
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 <img src="./pic/logo.jpg" width="480" height="300" alt="mlimpl">
 
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen) ![email](https://img.shields.io/badge/email-vincen.nwu%40gmail.com-red) ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: >= 3.6 (shields.io)](https://img.shields.io/badge/python-%3E%3D3.6-blue) ![NumPy version](https://img.shields.io/badge/NumPy-%3E%3D1.19.2-brightgreen) ![Pandas version](https://img.shields.io/badge/Pandas-%3E%3D1.1.3-brightgreen)
@@ -116,12 +117,12 @@ it is same as using sklearn as u saw.
 	- eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
         - i have implemented the exact greedy and approximate algorithm for split finding.
     	- Reference:*Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree boosting system. CoRR,abs/1603.02754, 2016.*
-- ***9. RandomForest***
+- **9. RandomForest**
 	- A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
-- ***10. GMM***
+- **10. GMM**
 	- Gaussian Mixture Model(single dimension) solved by EM.
 	- Reference:[Expectation Maximization-Yi Da Xu](https://github.com/roboticcam/machine-learning-notes/blob/master/files/em.pdf)
-- ***11. MCMC***
+- **11. MCMC**
 	- Markov Chain Monte Carlo.
     	-  Metropolis–Hastings Algorithm
     	-  Gibbs Sampling(To Be Completed).
