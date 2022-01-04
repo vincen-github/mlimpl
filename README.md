@@ -5,7 +5,7 @@
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen) ![email](https://img.shields.io/badge/email-vincen.nwu%40gmail.com-red) ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: >= 3.6 (shields.io)](https://img.shields.io/badge/python-%3E%3D3.6-blue) ![NumPy version](https://img.shields.io/badge/NumPy-%3E%3D1.19.2-brightgreen) ![Pandas version](https://img.shields.io/badge/Pandas-%3E%3D1.1.3-brightgreen)
 
 ## Introduce
-This Repository gathered some code which encapsulates commonly used methods in the field of machine learning. Most of them are based on Numpy and Pandas.U can deepen u understanding of related algorithm by referring to this repository.
+This Repository gathered some code which encapsulates commonly used methods in the field of machine learning. Most of them are based on Numpy and Pandas.U can deepen the understanding of related algorithm by referring to this repository.
 ## trait
 - Detailed documentation and annotation.
 - guidance for difficulty of algorithm.
