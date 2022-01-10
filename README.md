@@ -26,7 +26,8 @@ it is same as using sklearn as u saw.
 
 ## Table of Contents
 ***1. Deep Learning***
-	This folder contains the code related to deep learning experiment.Most of them are implemented by Pytorch or Tensorflow.
+
+This folder contains the code related to deep learning experiment.Most of them are implemented by Pytorch or Tensorflow.
 -   **1. Gan**
     - Generative Adversarial Networks(Gan) implementation using tensorflow1 and apply it to generate mnist dataset.
 -   **2. Cnn**
