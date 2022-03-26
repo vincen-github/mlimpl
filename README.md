@@ -104,4 +104,4 @@ This folder contains the code related to deep learning experiment.Most of them a
 - **12. Spectral Clustering**
   - Spectral clustering is a technique with roots in graph theory, where the approach is used to identify communities of nodes in a graph based on the edges connecting them. The method is flexible and allows us to cluster non graph data as well.
 Spectral clustering uses information from the eigenvalues (spectrum) of special matrices built from the graph or the data set.
-  -Reference:[Spectral Clustering原理总结-刘建平Pinard](https://www.cnblogs.com/pinard/p/6221564.html) 
+  - Reference:[Spectral Clustering原理总结-刘建平Pinard](https://www.cnblogs.com/pinard/p/6221564.html) 
