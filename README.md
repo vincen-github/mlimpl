@@ -40,7 +40,7 @@ This folder contains the code related to deep learning experiment.Most of them a
 	- Reference: *Anh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436.*
   
 ***2. Traditional Machine Learning***
--   **1. linear_model**
+- **1. linear_model**
     - Linear Regression
         - Analytical solution.
         - Gradient Descent.
@@ -53,52 +53,55 @@ This folder contains the code related to deep learning experiment.Most of them a
       - Iterated Ridge Regression.
         - using following approximation of *L1* norm to tranform lasso to iterated Ridge quesition.
         - Reference: *Mark Schmidt. Least squares optimization with l1-norm regularization. CS542B Project Report,504:195–221, 2005.*
--   **2. DecisionTree**
+- **2. DecisionTree**
     - ID3
       - Using information gain as criterion of buliding tree.
     - C4.5
-  		- Improvement of above method.Change the criterion to information gain ratio.
+          - Improvement of above method.Change the criterion to information gain ratio.
       - ***Note that above two implementation only support discrete features/labels.***
-	- Cart
-    	-  CartRegressor is to solve regression problem.This implementation can handle both continuous and discrete feature.
-		- For more details, please refer to *统计学习方法—李航*.
+    - Cart
+        -  CartRegressor is to solve regression problem.This implementation can handle both continuous and discrete feature.
+        - For more details, please refer to *统计学习方法—李航*.
     - ***There exists some decision tree implementation in ipynb file,which isn't encapsulated as class.***
 - **3. NaiveBayes**
-	- MultinomialNB
-    	-  Naive Bayes to solve discrete labels whose priori obey multinomial distribution.
+    - MultinomialNB
+        -  Naive Bayes to solve discrete labels whose priori obey multinomial distribution.
          - U need to ensure the incoming features are discrete that ensure this implementation effective.
        -  For more details refer to *统计学习方法—李航*.
     - GaussianNB
         -  Simalar mehtod as above but priori and likelihood are obey Gaussian.This implies that this method can handle continuous features/label.
         -  For more details refer to *机器学习—周志华*.
- - **4. SVM**
-	- Support vector machine solved by sequential minimal optimization algorithm for classification task.
-	- Reference:
-    	- [1] *John Platt. Sequential minimal optimization: A fast algorithm for training support vector machines. Technical Report MSR-TR-98-14, Microsoft, April 1998.*
-    	- [2] *统计学习方法—李航*.
+- **4. SVM**
+   - Support vector machine solved by sequential minimal optimization algorithm for classification task.
+   - Reference:
+       - [1] *John Platt. Sequential minimal optimization: A fast algorithm for training support vector machines. Technical Report MSR-TR-98-14, Microsoft, April 1998.*
+       - [2] *统计学习方法—李航*.
 
 - **5. KMeans++**
-	 - Common unsupervised algorithm for cluster improved from kmeans.
+     - Common unsupervised algorithm for cluster improved from kmeans.
     - *For more details refer to KMeans documentation in sklearn.*
 - **6. rejection_sampling**
-	- Rejection sampling method.A effective method to sample from a complex distribution.
+    - Rejection sampling method.A effective method to sample from a complex distribution.
 - **7. l1/2**
-	- l1/2 algorithm is a improved variant algorithm of lasso.
-    	- Similar with the method for solveing lasso, i.e., iterated ridge regression.The way for solving this non-convex regularization framework is to transform it to iterated lasso or ridge regression.
-		- Reference: *Xu, Z., Chang, X., Xu, F., & Zhang, H. (2012). L1/2 regularization: a thresholding representation theory and a fast solver. IEEE transactions on neural networks and learning systems, 23(7), 1013–1027. https://doi.org/10.1109/TNNLS.2012.2197412*
-	- the file named energy_predict.py is the distributed application on Energy Consumption Field of CNC Machine Tools.Distributed platform using here is Spark.
+    - l1/2 algorithm is a improved variant algorithm of lasso.
+        - Similar with the method for solveing lasso, i.e., iterated ridge regression.The way for solving this non-convex regularization framework is to transform it to iterated lasso or ridge regression.
+        - Reference: *Xu, Z., Chang, X., Xu, F., & Zhang, H. (2012). L1/2 regularization: a thresholding representation theory and a fast solver. IEEE transactions on neural networks and learning systems, 23(7), 1013–1027. https://doi.org/10.1109/TNNLS.2012.2197412*
+    - the file named energy_predict.py is the distributed application on Energy Consumption Field of CNC Machine Tools.Distributed platform using here is Spark.
 - **8. xgboost**
-	- eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
+    - eXtreme Gradient Boosting(xgboost) is a class that implement a scalable tree boosting system proposed by TianQi Chen.
         - i have implemented the exact greedy and approximate algorithm for split finding.
-    	- Reference:*Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree boosting system. CoRR,abs/1603.02754, 2016.*
+        - Reference:*Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree boosting system. CoRR,abs/1603.02754, 2016.*
 - **9. RandomForest**
-	- A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
+    - A random forest classifier.A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
 - **10. GMM**
-	- Gaussian Mixture Model(single dimension) solved by EM.
-	- Reference:[Expectation Maximization-Yi Da Xu](https://github.com/roboticcam/machine-learning-notes/blob/master/files/em.pdf)
+    - Gaussian Mixture Model(single dimension) solved by EM.
+    - Reference:[Expectation Maximization-Yi Da Xu](https://github.com/roboticcam/machine-learning-notes/blob/master/files/em.pdf)
 - **11. MCMC**
-	- Markov Chain Monte Carlo.
-    	-  Metropolis–Hastings Algorithm
-    	-  Gibbs Sampling(To Be Completed).
-	- Reference:[Markov Chain Monte Carlo-Yi Da Xu](https://github.com/roboticcam/machine-learning-notes/blob/master/files/markov_chain_monte_carlo.pdf.)
-
+    - Markov Chain Monte Carlo.
+        -  Metropolis–Hastings Algorithm
+        -  Gibbs Sampling(To Be Completed).
+    - Reference:[Markov Chain Monte Carlo-Yi Da Xu](https://github.com/roboticcam/machine-learning-notes/blob/master/files/markov_chain_monte_carlo.pdf.)
+- **12. Spectral Clustering**
+  - Spectral clustering is a technique with roots in graph theory, where the approach is used to identify communities of nodes in a graph based on the edges connecting them. The method is flexible and allows us to cluster non graph data as well.
+Spectral clustering uses information from the eigenvalues (spectrum) of special matrices built from the graph or the data set.
+  -Reference:[Spectral Clustering原理总结-刘建平Pinard](https://www.cnblogs.com/pinard/p/6221564.html) 

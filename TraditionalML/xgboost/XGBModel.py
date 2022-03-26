@@ -20,8 +20,8 @@ class XGBModel(object):
     ===========
     xgb is a class that implement a scalable tree boosting system proposed by TianQi Chen.
     @author: vincen
-    @NorthWestern University——CHINA  Mathematics faculty statistic
-    @MyGithub : https://github.com/vincen-github/Machine-Learning-Code
+    @NorthWest University——CHINA  Mathematics faculty statistic
+    @MyGithub : https://github.com/vincen-github/mlimpl
     @MyEmail : vincen.nwu@gmail.com
     ----------------------------
     Reference
