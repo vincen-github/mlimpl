@@ -28,17 +28,22 @@ it is same as using sklearn as u saw.
 ***1. Deep Learning***
 
 This folder contains the code related to deep learning experiment.Most of them are implemented by Pytorch or Tensorflow.
--   **1. Gan**
+- **1. Gan**
     - Generative Adversarial Networks(Gan) implementation using tensorflow1 and apply it to generate mnist dataset.
--   **2. Cnn**
-  	- Convolutional Neural Network implemented by  tensorflow1 to recognize digital verification code.
+- **2. Cnn**
+      - Convolutional Neural Network implemented by  tensorflow1 to recognize digital verification code.
 - **3. ann_by_matlab**
     - A toy artificial neural network implementation using matlab to classify mnist dataset.
     - The contents in this floder are implemented by myself expect the program which is for reading mnist dataset to memory.
 - **High Confidence Predictions for Unrecognizable Images**
-	- A simple demo about adversarial examples.
-	- Reference: *Anh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436.*
-  
+    - A simple demo about adversarial examples.
+    - Reference: *Anh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436.*
+- **autograd without torch**
+    - A simpy system which to calculate gradient automatically without using torch. Each Tensor represents a node in
+    computational graph.The edges built by forward propagation decide the path of derivation.The direction of derivation
+    is from top to bottom.You need to rewrite more operations and elementary functions if u want to build exclusive autograd
+    system belongs to yourself.
+
 ***2. Traditional Machine Learning***
 - **1. linear_model**
     - Linear Regression
