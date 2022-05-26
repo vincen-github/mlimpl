@@ -31,7 +31,7 @@ This folder contains the code related to deep learning experiment.Most of them a
 - **1. Gan**
     - Generative Adversarial Networks(Gan) implementation using tensorflow1 and apply it to generate mnist dataset.
 - **2. Cnn**
-      - Convolutional Neural Network implemented by  tensorflow1 to recognize digital verification code.
+    - Convolutional Neural Network implemented by  tensorflow1 to recognize digital verification code.
 - **3. ann_by_matlab**
     - A toy artificial neural network implementation using matlab to classify mnist dataset.
     - The contents in this floder are implemented by myself expect the program which is for reading mnist dataset to memory.
