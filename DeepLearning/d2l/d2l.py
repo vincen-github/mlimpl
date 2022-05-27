@@ -339,7 +339,6 @@ class Animator:
         # plt.pause(0.1)
 
 
-
 def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater):
     """
     train model in chapter 3.
@@ -357,3 +356,13 @@ def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater):
         assert train_loss < 5, train_loss
         assert 1 >= train_acc > 0.7, train_acc
         assert 1 >= test_acc > 0.7, test_acc
+
+
+def predict_ch3(net, test_iter, n=6):
+    """predict labels(chapter 3)"""
+    X, y = iter(test_iter).next()
+    trues = get_fashion_mnist_labels(y)
+    preds = get_fashion_mnist_labels(net(X).argmax(axis=1))
+    titles = [true + '\n' + pred for true, pred in zip(trues, preds)]
+    show_images(
+        X[0:n].reshape((n, 28, 28)), 1, n, titles=titles[0:n])
