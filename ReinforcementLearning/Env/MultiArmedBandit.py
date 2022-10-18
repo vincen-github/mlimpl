@@ -14,9 +14,13 @@ class MultiArmedBandit(EnvInterface, ABC):
 
     def __init__(self, reward_expectation=None, reward_variance=None):
         if not reward_expectation:
-            self.reward_expectation = [10, 20, 30]
+            self.reward_expectation = [10, 13, 15]
+        else:
+            self.reward_expectation = reward_expectation
         if not reward_variance:
-            self.reward_variance = [1, 1, 1]
+            self.reward_variance = [8, 5, 3]
+        else:
+            self.reward_variance = reward_variance
 
-    def take_reward(self, action):
+    def get_reward(self, action):
         return normal(self.reward_expectation[action], self.reward_variance[action])

@@ -78,7 +78,7 @@ class LSTM(Module):
         # original c's size : (hidden_size, 1), h's size: (hidden_size, 1). To facilitate the following calculation,
         # we need to reshape it to be (batch_size, hidden_size, 1).
         self.c, self.h = c0.unsqueeze(0).tile(batch_size, 1, 1), h0.unsqueeze(0).tile(batch_size,
-                                                                                           1, 1)
+                                                                                      1, 1)
 
         # output of lstm is equal to (output, cn, hn), the size of output on LHS is (batch_size, seq_size, hidden_size)
         # In this application, we do not need to output this feature.
