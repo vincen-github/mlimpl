@@ -5,6 +5,8 @@
 """
 
 # state number
+from random import choice, uniform
+
 from numpy import zeros, asarray, eye
 from numpy.linalg import inv
 
@@ -105,13 +107,59 @@ class MDP:
         R_S_mat = convert_from_dict_to_matrix(self.R_S)
 
         """solve analytic solution of Value function through Bellman equation."""
-        self.val_func = lambda s: (inv(eye(P_S_mat.shape[0]) - self.gamma * P_S_mat) @ R_S_mat)[int(s.split("s")[1]) - 1, 0]
+        self.val_func = lambda s: (inv(eye(P_S_mat.shape[0]) - self.gamma * P_S_mat) @ R_S_mat)[
+            int(s.split("s")[1]) - 1, 0]
         return self.val_func
 
+    def sample(self, max_step: int):
+        episode = []
+        # get initial state
+        current_s = choice(self.S)
+        for step in range(max_step):
+            # get available action and its prob about current s
+            available_a_p = [(a, p) for (a, s), p in self.Pi.items() if s == current_s]
+            # select action under current state through π(a|s)
+            acc_prob, current_a = 0, None
+            for a, p in available_a_p:
+                acc_prob += p
+                if uniform(0, 1) < acc_prob:
+                    current_a = a
+                    break
+            # get reward
+            current_r = None
+            for (s, a), r in self.R_S_A.items():
+                if s == current_s and a == current_a:
+                    current_r = r
+                    break
+            # add (current action, current state, current reward) into episode
+            episode.append((current_s, current_a, current_r))
+            # update new state through current action and state
+            # get reachable state under current action adn state
+            reachable_s_p = [(s_prime, p) for (s, a, s_prime), p in self.P_S_A.items() if
+                             s == current_s and a == current_a]
+            acc_prob = 0
+            for s_prime, p in reachable_s_p:
+                acc_prob += p
+                if uniform(0, 1) < acc_prob:
+                    current_s = s_prime
+                    break
+        return episode
 
-gamma = 0.5
+    def monte_carlo(self, episodes):
+        N = dict([(s, 0) for s in self.S])
+        V = dict([(s, 0) for s in self.S])
+        for episode in episodes:
+            G = 0
+            for i in range(len(episode)):
+                (s, a, r) = episode[i]
+                G = r + self.gamma * G
+                N[s] += 1
+                V[s] = V[s] + (G - V[s]) / N[s]
+        return V
+
+
 if __name__ == "__main__":
-    gamma = 0.5
+    gamma = 0.1
 
     state_num = 5
 
@@ -175,3 +223,8 @@ if __name__ == "__main__":
     val_func = mdp.analytic_value_func()
     for s in state_space:
         print(val_func(s))
+
+    episodes = [mdp.sample(max_step=10) for i in range(2000)]
+    V_pi = mdp.monte_carlo(episodes)
+
+    print(V_pi)
