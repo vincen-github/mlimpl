@@ -1,15 +1,18 @@
-from abc import ABC
+import gym
 
-from ReinforcementLearning.Env.EnvInterface import EnvInterface
+env = gym.make('CliffWalking-v0', render_mode='rgb_array')
+env.reset()
+terminated, truncated = False, False
+env.render()
 
+temp = env.P
 
-class CliffWalking(EnvInterface, ABC):
-    """
-        CliffWalking is a simple environment of reinforcement learning.
-    """
+for i in range(100):
 
-    def __init__(self):
-        pass
+    action = env.action_space.sample()
+    observation, reward, terminated, truncated, info = env.step(action)
+    print("terminated = {}, truncated = {}".format(terminated, truncated))
+    if terminated or truncated:
+        break
+    env.close()
 
-    def take_reward(self):
-        pass

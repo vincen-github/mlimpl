@@ -73,8 +73,11 @@ class MDP:
             else:
                 self.R_S_A[(s, a)] = val * self.Rewards_S_A[(s, a)]
 
-    # To calculate the state value function of mdp, we transform it as solving Bellman equation problem of mrp
     def __trans_mdp_to_mrp(self):
+        """
+        Model Based!!
+        To calculate the state value function of mdp, we transform it as solving Bellman equation problem of mrp.
+        """
         self.R_S, self.P_S = dict([]), dict([])
 
         # calculate P_S
@@ -101,6 +104,7 @@ class MDP:
                 self.R_S[s] = pi_a_s * val
 
     def analytic_value_func(self):
+        """Model Based!!!"""
         # firstly convert R_s and P_S to matrix form.
         P_S_mat = convert_from_dict_to_matrix(self.P_S)
 
@@ -146,16 +150,56 @@ class MDP:
         return episode
 
     def monte_carlo(self, episodes):
+        """
+            Model Free Reinforcement Learning!!!!
+            using monte carlo method to estimate the value of Vπ(s). This method use offline data to estimate Vπ(s).
+            The initial form of this algorithm .
+            这个算法的初始形式应为在episodes中遍历每一条轨道,当第i条轨道的起始状态是s时,s状态的计数器加1: N[s] = N[s] + 1.
+            利用该轨道的reward去计算return: G[s][i] = Rt + γR(t + 1) + γ²R(t+2) + ...  (i指代第i条轨道, s指代给定的状态)
+            我们现实中不可能得到无穷序列的离线数据， 但折扣因子γ < 1的设置使得我们可以将上级数截断,使用部分和替代该无穷级数.
+            遍历完所有episodes中的轨道后,利用 Vπ[s] = Σ_{i} G[s][i] / N[s]去估计Vπ在s处的取值.
+            但很显然，这种方式对于episodes的数量要求很苛刻.
+
+            一个改进点即是一但我们遇到状态s,不论其是否为起始状态,我们都将s后面的轨道部分其视为以状态s为起始的一条链.(这种改进使得我们不得不从后往前去计算回报。)
+
+            第二个改进点是增量更新:
+                1/(m+1) Σ_{i=1}^{m+1} Xi = 1/(m+1) X_{m+1} + (1 - 1/(m+1)) Σ_{i=1}^{m} Xi
+
+
+        """
         N = dict([(s, 0) for s in self.S])
         V = dict([(s, 0) for s in self.S])
         for episode in episodes:
             G = 0
-            for i in range(len(episode)):
+            for i in range(len(episode) - 1, -1, -1):
+                # We must calculate returns from tail to the front because the first improvement mentioned as above.
                 (s, a, r) = episode[i]
                 G = r + self.gamma * G
                 N[s] += 1
+                # Incremental update
                 V[s] = V[s] + (G - V[s]) / N[s]
         return V
+
+    # calculate occupancy given s and a
+    def occupancy(self, s, a, episodes):
+        rho = 0
+        # ρ(s, a) = (1 - γ)Σ(γ^t)Pt(s, a) ≈ (1 - γ)Σ(γ^t)Nt(s, a)/Nt
+        # First get max_step Nt in episodes
+        max_step = max([len(episode) for episode in episodes])
+        # Declare total_times to record Nt in each t.
+        # This is necessary as the length of episode is not equal.
+        total_times = zeros(max_step)
+        # declare occur_times to record Nt(s, a)
+        occur_times = zeros(max_step)
+        for episode in episodes:
+            for i in range(len(episode)):
+                s_prime, a_prime, r = episode[i]
+                total_times[i] += 1
+                if s == s_prime and a == a_prime:
+                    occur_times[i] += 1
+        for t in range(max_step):
+            rho += self.gamma ** t * occur_times[t] / total_times[t]
+        return self.gamma * rho
 
 
 if __name__ == "__main__":
@@ -228,3 +272,5 @@ if __name__ == "__main__":
     V_pi = mdp.monte_carlo(episodes)
 
     print(V_pi)
+
+    print(mdp.occupancy("s4", "-> with prob", episodes))
