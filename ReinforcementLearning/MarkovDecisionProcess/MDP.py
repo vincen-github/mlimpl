@@ -160,7 +160,7 @@ class MDP:
             遍历完所有episodes中的轨道后,利用 Vπ[s] = Σ_{i} G[s][i] / N[s]去估计Vπ在s处的取值.
             但很显然，这种方式对于episodes的数量要求很苛刻.
 
-            一个改进点即是一但我们遇到状态s,不论其是否为起始状态,我们都将s后面的轨道部分其视为以状态s为起始的一条链.(这种改进使得我们不得不从后往前去计算回报。)
+            一个改进点即是一但我们遇到状态s,不论其是否为起始状态,我们都将s后面的轨道部分其视为以状态s为起始的一条链.(为了在这种setup下我们可以即时更新，不得不从后往前去计算回报。)
 
             第二个改进点是增量更新:
                 1/(m+1) Σ_{i=1}^{m+1} Xi = 1/(m+1) X_{m+1} + (1 - 1/(m+1)) Σ_{i=1}^{m} Xi
@@ -173,6 +173,8 @@ class MDP:
             G = 0
             for i in range(len(episode) - 1, -1, -1):
                 # We must calculate returns from tail to the front because the first improvement mentioned as above.
+                # If reverse the order of calculation, your can't immediately compute the return when your encounter a
+                # state that your can't incremental update.
                 (s, a, r) = episode[i]
                 G = r + self.gamma * G
                 N[s] += 1
