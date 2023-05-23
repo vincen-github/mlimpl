@@ -10,9 +10,9 @@ class ShapeError(Exception):
 
 
 class PolicyIter(object):
-    """This class is the implementation of policy iteration to solve model based reinforce learning problem, thus u need
-    to pass the transition matrix of mdp, of the form which same as gym's. This program will rely on following process
-    to find a great policy what ur need.
+    """This class is the implementation of policy iteration to solve model based reinforcement learning problem, thus u
+    need to pass the transition matrix of mdp, of the form which same as gym's. This program will rely on following
+    process to find a great policy what ur need.
     policy evaluation -> policy improve -> policy evaluation -> policy improve -> .... (until convergence)
     """
 
@@ -107,6 +107,8 @@ class PolicyIter(object):
                 self.V[s] = 0
                 for a in self.A:
                     # Note: In fact, Here using Gauss–Seidel iterative method to accelerate convergence.
+                    # Bellman Expectation Equation
+                    # Vπ(s) = Σ_{a∈A}π(a|s)(r(s,a) + γΣ_{s'∈S}p(s'|s,a)Vπ(s'))
                     self.V[s] += self.pi[s][a] * (self.r(s, a) + \
                                                   self.gamma * sum(
                                 [self.trans_prob(s, a, s_prime) * old_V[s_prime] for s_prime in S])
@@ -119,9 +121,12 @@ class PolicyIter(object):
 
     def improve(self):
         for s in self.S:
+            # π(s) = argmax(Qπ(s,a))
+            # Qπ(s,a) = r(s,a) + γP(s'|s,a)Vπ(s')
             max_index = argmax(
                 [self.r(s, a) + self.gamma * sum([self.trans_prob(s, a, s_prime) * self.V[s_prime] for s_prime in S])
                  for a in self.A])
+            # new_π = (0, 0, ..., 0, 1, 0, ..., 0), where the index of nonzero item is argmax(Qπ(s,a)).
             self.pi[s] = zeros(self.nA)
             self.pi[s][max_index] += 1
 
@@ -144,13 +149,14 @@ if __name__ == '__main__':
     # get params needed to pass to class.
     P = env.P
     print(P[0])
-    # notice that P got from gym  don't set the reward as a large number so that our algorithm can not convergence, thus
-    # we need to reset it.
+    # notice that P got from gym default set the reward in terminated state as -1 which is not distinguish the other
+    # action to program our code, we need to reset the reward got in terminated state to be a number which is greater
+    # than -1.
     for key1, _ in P.items():
         for key2, value in P[key1].items():
             (p, new_state, reward, terminated) = value[0]
             if terminated:
-                P[key1][key2] = [(p, new_state, 1e3, terminated)]
+                P[key1][key2] = [(p, new_state, 0, terminated)]
     print(P)
 
     nS = int(findall(r"\d+\.?\d*", str(env.observation_space))[0])
