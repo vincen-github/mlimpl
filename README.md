@@ -104,7 +104,7 @@ This folder contains the code about deep learning algorithm. Most of them are im
 
 ***3. Statistical Learning***
 
-This part records the classic Statistical Learning， most of them are implemented in my undergraduate.
+This part records the classic Statistical Learning, most of them are implemented in my undergraduate.
 - **1. linear_model**
     - Linear Regression
         - Analytical solution.
