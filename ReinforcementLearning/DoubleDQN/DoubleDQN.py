@@ -1,6 +1,6 @@
 from numpy.random import random, randint
 
-from torch import tensor, float32, empty, mean, int64, argmax
+from torch import tensor, float32, empty, int64
 from torch.nn.functional import mse_loss
 from torch.optim import Adam
 
@@ -64,12 +64,13 @@ class DoubleDQN:
                 transition[0]), tensor(transition[1]), tensor(transition[2]), tensor(transition[3]), tensor(
                 transition[4]), tensor(transition[5])
 
-        # loss = 1/2nΣ[r + max_{a'}target_Q(s', a') - Q(s,a)]
-
-        double_dqn_loss = mean(mse_loss(
+        # loss = 1/2nΣ[r + max_{a'}target_Q(s', argmax{a'}Q(s',a')) - Q(s,a)]
+        q_net_max_actions = self.q_net(next_states).max(1)[1].view(-1, 1)
+        # q_net_max_actions_requires_grad = False
+        double_dqn_loss = mse_loss(
             self.q_net(states).gather(1, actions.view(-1, 1)).flatten(),
-            (rewards + self.gamma * self.target_net(next_states).gather(1, argmax(self.q_net(states), 1).view(-1, 1)).flatten() * (1 - terminateds) * (1 - truncateds))
-        ))
+            (rewards + self.gamma * self.target_net(next_states).gather(1, q_net_max_actions).flatten() * (1 - terminateds) * (1 - truncateds))
+        )
         # optimize
         self.optimizer.zero_grad()
         double_dqn_loss.backward()

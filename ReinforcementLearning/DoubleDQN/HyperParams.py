@@ -1,13 +1,13 @@
 import torch
 
 lr = 1e-2
-num_episodes = 200
+num_episodes = 500
 hidden_dim = 128
-gamma = 0.97
-eps = 0.01
-target_update_frequency = 50
-buffer_capacity = 10000
-batch_size = 64
+gamma = 0.98
+eps = 0.1
+target_update_frequency = 100
+buffer_capacity = 5000
+batch_size = 128
 # minimal size determines when to start updating the parameters of the neural network using data from the experience
 # replay pool
 minimal_size = 1000

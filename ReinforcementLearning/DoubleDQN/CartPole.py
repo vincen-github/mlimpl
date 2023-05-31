@@ -1,4 +1,5 @@
 from matplotlib.pyplot import plot, show, figure, xlabel, ylabel
+from numpy import mean
 
 from ReinforcementLearning.DoubleDQN.DoubleDQN import DoubleDQN
 from ReinforcementLearning.DoubleDQN.ReplayBuffer import ReplayBuffer
@@ -39,14 +40,14 @@ if __name__ == "__main__":
                 # use above transitions to calculate loss function
                 agent.update(transitions)
         if (i + 1) % 10 == 0:
-            print("episode:{}, episode_return:{}.".format(i, episode_return))
+            print("episodes:{}->{}, episode_returns_mean:{}.".format(i - 9, i, mean(returns[i - 9:i])))
         returns.append(episode_return)
     env.close()
 
     # plot
     figure(dpi=400)
     plot(returns, c="darkblue")
-    xlabel("eposide")
+    xlabel("episode")
     ylabel("return")
     show()
 

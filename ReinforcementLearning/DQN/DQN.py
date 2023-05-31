@@ -2,7 +2,7 @@ from matplotlib.pyplot import plot, show, figure, xlabel, ylabel
 from numpy.random import random, randint
 
 import gym
-from torch import tensor, float32, empty, mean, int64
+from torch import tensor, float32, empty, int64
 from torch.nn.functional import mse_loss
 from torch.optim import Adam
 
@@ -69,10 +69,10 @@ class DQN:
                 transition[4]), tensor(transition[5])
 
         # loss = 1/2nΣ[r + max_{a'}target_Q(s', a') - Q(s,a)]
-        dqn_loss = mean(mse_loss(
+        dqn_loss = mse_loss(
             self.q_net(states).gather(1, actions.view(-1, 1)).flatten(),
             (rewards + self.gamma * self.target_net(next_states).max(1)[0] * (1 - terminateds) * (1 - truncateds))
-        ))
+        )
 
         # optimize
         self.optimizer.zero_grad()
