@@ -6,8 +6,7 @@ class Qnet(Module):
         super(Qnet, self).__init__()
         self.model = Sequential(Linear(state_dim, hidden_dim),
                                 ReLU(),
-                                Linear(hidden_dim, action_card),
-                                ReLU())
+                                Linear(hidden_dim, action_card))
 
     def forward(self, x):
         return self.model(x)

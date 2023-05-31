@@ -1,3 +1,7 @@
+import random
+
+import numpy as np
+import torch
 from matplotlib.pyplot import plot, show, figure, xlabel, ylabel
 from numpy import mean
 
@@ -17,6 +21,12 @@ def trans_discrete_to_continuous(discrete_action, env, action_card):
 if __name__ == "__main__":
     env = gym.make("Pendulum-v1", render_mode="rgb_array")
     # Environment Reference: https://www.gymlibrary.dev/environments/classic_control/pendulum/
+    random.seed(0)
+    np.random.seed(0)
+    torch.manual_seed(0)
+    torch.cuda.manual_seed(0)
+
+
     # get instance of Class ReplayBuffer
     replay_buffer = ReplayBuffer(HyperParams.buffer_capacity)
 
@@ -31,7 +41,7 @@ if __name__ == "__main__":
 
     for i in range(HyperParams.num_episodes):
         episode_return = 0
-        state = env.reset()[0]
+        state = env.reset(seed=0)[0]
         while True:
             action = agent.take_action(state)
             # transfer discrete actions to continuous action
@@ -53,7 +63,7 @@ if __name__ == "__main__":
                 # use above transitions to calculate loss function
                 agent.update(transitions)
         if (i + 1) % 10 == 0:
-            print("episodes:{}->{}, episode_returns_mean:{}.".format(i - 9, i, mean(returns[i - 9:i])))
+            print("episodes:{}->{}, episode_returns_mean:{}.".format(i - 9, i, mean(returns[-10:])))
         returns.append(episode_return)
     env.close()
 
@@ -67,7 +77,7 @@ if __name__ == "__main__":
     env = gym.make("Pendulum-v1", render_mode="human")
 
     for i in range(10):
-        state = env.reset()[0]
+        state = env.reset(seed=0)[0]
         while True:
             env.render()
             action = agent.take_action(state)
