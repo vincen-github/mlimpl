@@ -1,7 +1,3 @@
-import random
-
-import numpy as np
-import torch
 from matplotlib.pyplot import plot, show, figure, xlabel, ylabel
 from numpy import mean
 
@@ -21,10 +17,6 @@ def trans_discrete_to_continuous(discrete_action, env, action_card):
 if __name__ == "__main__":
     env = gym.make("Pendulum-v1", render_mode="rgb_array")
     # Environment Reference: https://www.gymlibrary.dev/environments/classic_control/pendulum/
-    random.seed(0)
-    np.random.seed(0)
-    torch.manual_seed(0)
-    torch.cuda.manual_seed(0)
 
 
     # get instance of Class ReplayBuffer
@@ -41,7 +33,8 @@ if __name__ == "__main__":
 
     for i in range(HyperParams.num_episodes):
         episode_return = 0
-        state = env.reset(seed=0)[0]
+        # state = env.reset(seed=0)[0]
+        state = env.reset()[0]
         while True:
             action = agent.take_action(state)
             # transfer discrete actions to continuous action
@@ -77,7 +70,8 @@ if __name__ == "__main__":
     env = gym.make("Pendulum-v1", render_mode="human")
 
     for i in range(10):
-        state = env.reset(seed=0)[0]
+        # state = env.reset(seed=0)[0]
+        state = env.reset()[0]
         while True:
             env.render()
             action = agent.take_action(state)
