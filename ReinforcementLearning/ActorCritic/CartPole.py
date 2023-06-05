@@ -34,6 +34,8 @@ if __name__ == "__main__":
         agent.update(transitions)
         if (i + 1) % 50 == 0:
             print("episodes:{}->{}, episode_returns_mean:{}.".format(i - 49, i, mean(returns[i - 49:i])))
+        if mean(returns[i - 49: i]) > 400:
+            break
     env.close()
 
     # plot
