@@ -27,7 +27,7 @@ As your seen, it is same as sklearn.
 ## Contents
 ***1. Deep Learning***
 
-This folder contains the code about deep learning algorithm. Most of them are implemented by torch or tensorflow. Here are some brief introduction about this guys.
+This part contains the code about deep learning algorithm. Most of them are implemented by torch or tensorflow. Here are some brief introduction about this guys.
 - **1. Gan**
     - Generative Adversarial Networks(Gan). I implemented it using tensorflow 1 and applied it to generate mnist dataset.
 - **2. Cnn**
@@ -100,7 +100,31 @@ This folder contains the code about deep learning algorithm. Most of them are im
   - You can view temporal difference as a method which is used to revise the estimation of Q(s,a) by online data. Sarsa use temporal difference evaluate action value function, and reset the greedy policy as ε-greedy in policy improvement.
   - Reference:*https://hrl.boyuai.com/chapter/1/%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95#53-sarsa-%E7%AE%97%E6%B3%95*
 - **8. DQN**
-  - To be completed.
+  - Above Reinforcement Learning algorithm can not handle the case that the cardinality of state space is an infinite, which causes that action set cannot be recorded as tabular form. A common solution is to use neural networks to approximate the action value function. More precisely, we want to train a neural network whose input is state s and its output is a vector that contains (Q(s,a1), Q(s,a2), ..., Q(s, an)). A natural question raised is how to tackle the problem that the cardinalities of state space and action space are both infinite. There are two ways to answer this question, one is discrete action space to make DQN adapt to this case and the other guy is altering the structure of neural network. In our code, we will illustrate the first under the environment named Pendulum in the part of Double DQN.
+  - Reference: 
+    - *https://www.bilibili.com/video/BV1mB4y1g77R/?spm_id_from=333.999.0.0&vd_source=8c6dbad02305a4d2c6919e458c8c03b5*
+    - *https://hrl.boyuai.com/chapter/2/dqn%E7%AE%97%E6%B3%95*
+- **9. DoubleDQN**
+  - Double DQN is a improved method based on DQN to fix the problem that the process of training DQN is unstable. It imports target network to achieve better performance.
+  - Reference:
+    - *https://www.youtube.com/watch?v=X2-56QN79zc&list=PLvOO0btloRntS5U8rQWT9mHFcUdYOUmIC&index=2&ab_channel=ShusenWang*
+    - *https://hrl.boyuai.com/chapter/2/dqn%E6%94%B9%E8%BF%9B%E7%AE%97%E6%B3%95*
+- **10. DualingDQN**
+  - Dualing DQN revise a detail in TD target to achieve better performance than DQN and Double DQN. 
+  - Reference:
+    - *https://www.youtube.com/watch?v=DBux6cA0EoM&list=PLvOO0btloRntS5U8rQWT9mHFcUdYOUmIC&index=3&ab_channel=ShusenWang*
+    - *https://hrl.boyuai.com/chapter/2/dqn%E6%94%B9%E8%BF%9B%E7%AE%97%E6%B3%95#84-dueling-dqn*
+- **11. PolicyGradient**
+  - Policy Gradient is a policy based algorithm in reinforcement learning, which use a neural network to encode policy directly. I have implemented REINFORCE algorithm in my code.
+  - Reference:
+    - Richard S Sutton, David McAllester, Satinder Singh, and Yishay Mansour. Policy gradient methods for reinforcement learning with function approximation. In S. Solla, T. Leen, and K. Müller, editors, Advances in Neural Information Processing Systems, volume 12. MIT Press, 1999. URL https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf.
+    - *https://www.youtube.com/watch?v=qI0vyfR2_Rc&list=PLvOO0btloRnsiqM72G4Uid0UWljikENlU&index=3&ab_channel=ShusenWang*
+    - *https://hrl.boyuai.com/chapter/2/%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E7%AE%97%E6%B3%95*
+- **12. Actor-Critic**
+  - Actor-Critic learns both value network and policy network. Value network serves as the referee to determine the quality of actor. Actor plays the role of an athlete that caters to the preferences of the referee. 
+  - Reference:
+    - *https://www.youtube.com/watch?v=yNEqbptitZs&list=PLvOO0btloRnujjKTwoC5fOJxC7nmiQ4c4&ab_channel=ShusenWang*
+    - *https://hrl.boyuai.com/chapter/2/actor-critic%E7%AE%97%E6%B3%95*
 
 ***3. Statistical Learning***
 
@@ -169,4 +193,4 @@ This part records the classic Statistical Learning, most of them are implemented
 - **12. Spectral Clustering**
   - Spectral clustering is a technique with roots in graph theory, where the approach is used to identify communities of nodes in a graph based on the edges connecting them. The method is flexible and allows us to cluster non graph data as well.
 Spectral clustering uses information from the eigenvalues (spectrum) of special matrices built from the graph or the data set.
-  - Reference: *[Spectral Clustering原理总结-刘建平Pinard](https://www.cnblogs.com/pinard/p/6221564.html)*
+  - Reference: *https://www.cnblogs.com/pinard/p/6221564.html*
