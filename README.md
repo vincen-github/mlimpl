@@ -53,7 +53,12 @@ This part contains the code about deep learning algorithm. Most of them are impl
 - **VAE**
   - VAE is abbreviation of Variational Auto Encoder, which combine the variational inference and autoencoder to creat a great method of representation learning. I implemented the demo mentioned in original paper.
   - Reference: *Diederik P Kingma and Max Welling. Auto-encoding variational bayes, 2022.*
-
+- **resnet50**
+  -  In my project, I was required to convert Imagenet1K into 1000 HDF5 files due to the file quantity restrictions imposed by the Supercomputing Center of Wuhan University. These files were named in accordance with their respective classes. Following this, I had to customize a dataloader for training, as demonstrated in `train_reader.py`. In addition, I encountered a CPU bottleneck issue. However, I successfully resolved it by allocating more CPU cores and setting `num_works` and `prefetch_factor` to larger values. Furthermore, I set `pin_memory` to true during the construction of the dataloader, which kept the Volatile GPU-Util busier. One potential pitfall to be aware of is that the Imagenet1K training dataset contains a small number of grayscale images and images with four channels. This is an important consideration when customizing your own dataloader.
+  - The model's code draws inspiration from the original ResNet code, authored by Kaiming He. But maybe due to the optimization policy, I only achieve 68.1% validation accuracy after training 64 epochs. which is far from 78% mentioned in paper.
+  - Reference:
+    - *Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. CoRR, abs/1512.03385, 2015. URL http://arxiv.org/abs/1512.03385.*
+  
 ***2. Reinforcement Learning*** 
 - **1. Env**
     - Some basic reinforcement learning environments.
@@ -131,41 +136,35 @@ This part contains the code about deep learning algorithm. Most of them are impl
 This part records the classic Statistical Learning, most of them are implemented in my undergraduate.
 - **1. linear_model**
     - Linear Regression
-        - Analytical solution.
-        - Gradient Descent.
-        - AdamOptimizer.
-          - Reference: *Sebastian Ruder. An overview of gradient descent optimization algorithms. CoRR, abs/1609.04747,2016.*
+      - I have implemented a linear regression model which is the simplest machine learning algorithm used various algorithm including analytical formula, gradient descent and adam optimizer.
+      - Reference: *Sebastian Ruder. An overview of gradient descent optimization algorithms. CoRR, abs/1609.04747,2016.*
     - Ridge
-      - Samilar as above.
+        - Using the same method as above to complete the implementation of ridge.
     - Lasso
-      - Coordinate Descent.
+      - Coordinate descent and Iterated Ridge Regression is used in here to solve lasso model.
       - Iterated Ridge Regression.
-        - using following approximation of *L1* norm to tranform lasso to iterated Ridge quesition.
+        - Use approximation of *L1* norm mentioned in following paper to transform the optimization problem of lasso to be an iterated ridge question.
         - Reference: *Mark Schmidt. Least squares optimization with l1-norm regularization. CS542B Project Report,504:195–221, 2005.*
 - **2. DecisionTree**
-    - ID3
-      - Using information gain as criterion of buliding tree.
-    - C4.5
-          - Improvement of above method.Change the criterion to information gain ratio.
+    - I have implemented ID3, which uses information gain as its criterion for building decision tree model; C4.5, which improves the performance of ID3 by changing the criterion to be information gain ratio.
       - ***Note that above two implementation only support discrete features/labels.***
     - Cart
-        -  CartRegressor is to solve regression problem.This implementation can handle both continuous and discrete feature.
+        - CartRegressor aims for solving regression problem using tree model. This implementation can handle both continuous and discrete feature.
         - For more details, please refer to *统计学习方法—李航*.
-    - ***There exists some decision tree implementation in ipynb file,which isn't encapsulated as class.***
+    - ***There exists some decision tree implementation in ipynb file,which hasn't been encapsulated as class.***
 - **3. NaiveBayes**
     - MultinomialNB
         -  Naive Bayes to solve discrete labels whose priori obey multinomial distribution.
-         - U need to ensure the incoming features are discrete that ensure this implementation effective.
+         - You need to ensure the incoming features are discrete to make this implementation effective.
        -  For more details refer to *统计学习方法—李航*.
     - GaussianNB
-        -  Simalar mehtod as above but priori and likelihood are obey Gaussian.This implies that this method can handle continuous features/label.
+        -  Similar method as above but supposing the priori and likelihood are obey Gaussian. Therefore, this implementation can handle continuous features/label.
         -  For more details refer to *机器学习—周志华*.
 - **4. SVM**
    - Support vector machine solved by sequential minimal optimization algorithm for classification task.
    - Reference:
        - [1] *John Platt. Sequential minimal optimization: A fast algorithm for training support vector machines. Technical Report MSR-TR-98-14, Microsoft, April 1998.*
        - [2] *统计学习方法—李航*.
-
 - **5. KMeans++**
      - Common unsupervised algorithm for cluster improved from kmeans.
     - *For more details refer to KMeans documentation in sklearn.*
