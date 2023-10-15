@@ -10,14 +10,16 @@ def validate(model, val_loader):
 
     with torch.no_grad():
         for imgs, labels in val_loader:
-            imgs = imgs.to(device)
-            labels = labels.to(device)
-
+            imgs, labels = imgs.to(device), labels.to(device)
             outs = model(imgs)
-            _, predicted = torch.max(outs.data, 1)
+            probs = torch.nn.functional.softmax(outs.data, dim=1)
+            _, predicted = torch.max(probs, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
     accuracy = correct / total
 
+    model.train()
+
     return accuracy
+

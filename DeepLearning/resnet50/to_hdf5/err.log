@@ -1,0 +1,98 @@
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 10, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 256 had too many entries: 32, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 257 had too many entries: 32, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 48, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 11, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:866: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 1024, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 2, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:866: UserWarning: Corrupt EXIF data.  Expecting to read 4 bytes but only got 0. 
+  warnings.warn(str(msg))
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:866: UserWarning: Truncated File Read
+  warnings.warn(str(msg))
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 256 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 257 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 296 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 34665 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 274 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 22, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:866: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 11, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 11, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 16, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 1024, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 5, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 11, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 256 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 257 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 296 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 34665 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 274 had too many entries: 4, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:866: UserWarning: Truncated File Read
+  warnings.warn(str(msg))
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 1024, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 2, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 6, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 2, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:866: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 6, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 2, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 1024, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 35, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 1024, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 6, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 256 had too many entries: 9, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 257 had too many entries: 9, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 2, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 20, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 33, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:866: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 5, expected 1
+  warnings.warn(
+/home/mawensen/project/miniconda3/lib/python3.11/site-packages/PIL/TiffImagePlugin.py:648: UserWarning: Metadata Warning, tag 33723 had too many entries: 100, expected 1
+  warnings.warn(
