@@ -54,11 +54,15 @@ This part contains the code about deep learning algorithm. Most of them are impl
   - VAE is abbreviation of Variational Auto Encoder, which combine the variational inference and autoencoder to creat a great method of representation learning. I implemented the demo mentioned in original paper.
   - Reference: *Diederik P Kingma and Max Welling. Auto-encoding variational bayes, 2022.*
 - **resnet50**
-  -  In my project, I was required to convert Imagenet1K into 1000 HDF5 files due to the file quantity restrictions imposed by the Supercomputing Center of Wuhan University. These files were named in accordance with their respective classes. Following this, I had to customize a dataloader for training, as demonstrated in `train_reader.py`. In addition, I encountered a CPU bottleneck issue. However, I successfully resolved it by allocating more CPU cores and setting `num_works` and `prefetch_factor` to larger values. Furthermore, I set `pin_memory` to true during the construction of the dataloader, which kept the Volatile GPU-Util busier. One potential pitfall to be aware of is that the Imagenet1K training dataset contains a small number of grayscale images and images with four channels. This is an important consideration when customizing your own dataloader.
+  - In my project, I was required to convert Imagenet1K into 1000 HDF5 files due to the file quantity restrictions imposed by the Supercomputing Center of Wuhan University. These files were named in accordance with their respective classes. Following this, I had to customize a dataloader for training, as demonstrated in `train_reader.py`. In addition, I encountered a CPU bottleneck issue. However, I successfully resolved it by allocating more CPU cores and setting `num_works` and `prefetch_factor` to larger values. Furthermore, I set `pin_memory` to true during the construction of the dataloader, which kept the Volatile GPU-Util busier. One potential pitfall to be aware of is that the Imagenet1K training dataset contains a small number of grayscale images and images with four channels. This is an important consideration when customizing your own dataloader.
   - The model's code draws inspiration from the original ResNet code, authored by Kaiming He. But maybe due to the optimization policy, I only achieve 68.1% validation accuracy after training 64 epochs. which is far from 78% mentioned in paper. Don't forget to create folder named `res` when you use my code to train model and save it. 
   - Reference:
     - *Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. CoRR, abs/1512.03385, 2015. URL http://arxiv.org/abs/1512.03385.*
-  
+- **TransferLearning**
+  - In this implementation, I employ transfer learning technique to address the challenge posed by the APTOS 2019 Blindness Detection competition on Kaggle, which aims to detect diabetic retinopathy early enough to prevent blindness. Transfer Learning allows you to leverage a smaller dataset and reduce training time, while achieving comparable or even superior performance compared to training from scratch.  
+  - The competition details can be found at *https://www.kaggle.com/competitions/aptos2019-blindness-detection/overview*. 
+  - The backbone of my solution is the ResNet50 architecture. It can be available through https://download.pytorch.org/models/resnet50-0676ba61.pth. You can also use the weights pretraining by yourself.
+
 ***2. Reinforcement Learning*** 
 - **1. Env**
     - Some basic reinforcement learning environments.
