@@ -5,7 +5,7 @@
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen) ![email](https://img.shields.io/badge/email-vincen.nwu%40gmail.com-red) ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: >= 3.6 (shields.io)](https://img.shields.io/badge/python-%3E%3D3.6-blue) ![NumPy version](https://img.shields.io/badge/NumPy-%3E%3D1.19.2-brightgreen) ![Pandas version](https://img.shields.io/badge/Pandas-%3E%3D1.1.3-brightgreen)
 
 ## Introduction
-This repository collects some codes which encapsulates commonly used algorithms in the field of machine learning. Most of them are based on Numpy, Pandas or Torch. Your can deepen your understanding to related model and algorithm or revise it to get the customized code belongs yourself by referring to this repository. I'm very glad that it can give you a bit of inspiration.
+This repository collects some codes that encapsulates commonly used algorithms in the field of machine learning. Most of them are based on Numpy, Pandas or Torch. You can deepen your understanding to related model and algorithm or revise it to get the customized code belongs yourself by referring to this repository. I'm very glad that it can give you a bit of inspiration.
 ## Why choose my repository?
 - Detailed documentation and annotation.
 - Guidance for difficulty of algorithm: I will write down the guidance with code comments in the place that there are some difficulties encountered when i implemented it.
@@ -172,7 +172,7 @@ This part records the classic Statistical Learning, most of them are implemented
     - Rejection sampling method.A effective method to sample from a complex distribution.
 - **7. l1/2**
     - l1/2 algorithm is a improved variant algorithm of lasso.
-        - Similar with the method for solveing lasso, i.e., iterated ridge regression.The way for solving this non-convex regularization framework is to transform it to iterated lasso or ridge regression.
+        - Similar with the method for solving lasso, i.e., iterated ridge regression.The way for solving this non-convex regularization framework is to transform it to iterated lasso or ridge regression.
         - Reference: *Xu, Z., Chang, X., Xu, F., & Zhang, H. (2012). L1/2 regularization: a thresholding representation theory and a fast solver. IEEE transactions on neural networks and learning systems, 23(7), 1013–1027. https://doi.org/10.1109/TNNLS.2012.2197412*
     - the file named energy_predict.py is the distributed application on Energy Consumption Field of CNC Machine Tools.Distributed platform using here is Spark.
 - **8. xgboost**
