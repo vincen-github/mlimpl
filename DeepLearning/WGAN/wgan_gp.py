@@ -60,23 +60,6 @@ for epoch in range(NUM_EPOCHS):
             # hatx's shape: (BATCH_SIZE, IMG_CHANNELS, IMAGE_SIZE, IMAGE_SIZE)
             hatx = eps * real + (1 - eps) * fake
             # hatx_score's shape : BATCH_SIZE
-#            hatx_score = critic(hatx)
-#            gradients = grad(
-#                outputs=hatx_score,
-#                inputs=hatx,
-                # torch doesn't support to calculate derivative of tensors w.r.t tensors, 
-                # thus it is necessary to set the augment `grad_outputs` to be a tensor possessing same shape as y.
-                # torch will compute the derivative of y_i w.r.t x and then weighted sum them according to passed `grad_outputs`.
-                # For example, suppose current_batch_size = 4, thus the shape of hatx is [4, IMG_CHANNELS, IMAGE_SIZE, IMAGE_SIZE]
-                # the mathematic formulation of hatx_score = [f(hatx_1), f(hatx_2), f(hatx_3), f(hatx_4)], but torch views it as 
-                #                                   hatx_score = [f1(hatx), f2(hatx), f3(hatx), f4(hatx)]
-                # for any i = 1, 2, 3, 4, the shape of ∂(fi) / ∂(hatx) still remains [4, IMG_CHANNELS, IMAGE_SIZE, IMAGE_SIZE]
-                # but all elements of ∂(f1) / ∂(hatx) are vanish except for the block ∂(f1) / ∂(hatx)[0, :] as f1 only depends on hatx_1.
-                # therefore the summation operation in here is make sense.
- #               grad_outputs=ones_like(hatx_score),
- #               create_graph=True,
- #               retain_graph=True
- #           )[0]
             hatx_score = critic(hatx).reshape(-1)
             gradients = grad(
                 outputs=hatx_score,
