@@ -5,12 +5,12 @@
 ![author: vincen (shields.io)](https://img.shields.io/badge/author-vincen-brightgreen) ![email](https://img.shields.io/badge/email-vincen.nwu%40gmail.com-red) ![build: passing (shields.io)](https://img.shields.io/badge/build-passing-brightgreen) ![python: >= 3.6 (shields.io)](https://img.shields.io/badge/python-%3E%3D3.6-blue) ![NumPy version](https://img.shields.io/badge/NumPy-%3E%3D1.19.2-brightgreen) ![Pandas version](https://img.shields.io/badge/Pandas-%3E%3D1.1.3-brightgreen)
 
 ## Introduction
-This repository collects some codes that encapsulates commonly used algorithms in the field of machine learning. Most of them are based on Numpy, Pandas or Torch. You can deepen your understanding to related model and algorithm or revise it to get the customized code belongs yourself by referring to this repository. I'm very glad that it can give you a bit of inspiration.
+This repository contains implementations of commonly used algorithms in machine learning, covering several areas such as statistical learning, deep learning, and reinforcement learning. Most implementations are built using libraries like NumPy, Pandas, or PyTorch. I hope these resources help deepen your understanding of the related models and algorithms. Feel free to modify the code to suit your specific needs.
 ## Why choose my repository?
-- Detailed documentation and annotation.
-- Guidance for difficulty of algorithm: I will write down the guidance with code comments in the place that there are some difficulties encountered when i implemented it.
+- Comprehensive Documentation and Annotations: Each implementation is well-documented, with clear explanations to help you understand the implementations.
+- Implementation Guidance: For areas where I encountered challenges during implementation, I provide detailed comments and guidance to help you navigate the more difficult parts of the code.
 ## How to use it?
-Most implementation of algorithms in this repository are encapsulated to be a class, whose structure is same as sklearn that contains three methods, i.e., fit, predict, score. Here is an instance shown as below:
+Most of the algorithm implementations in this repository are encapsulated as classes, following a structure similar to scikit-learn. Each class includes three primary methods: `fit`, `predict`, `score`. An example is shown below:
 ```python
 from Multiple_linear_regression import LinearRegression
 from sklearn.datasets import load_boston
@@ -22,27 +22,24 @@ reg.fit(X, y)
 y_pred = reg.predict(X)
 score = reg.score(X, y)
 ```
-As your seen, it is same as sklearn.
 
 ## Contents
 ***1. Deep Learning***
 
-This part contains the code about deep learning algorithm. Most of them are implemented by torch or tensorflow. Here are some brief introduction about this guys.
-- **1. Gan**
-    - Generative Adversarial Networks(Gan). I implemented it using tensorflow 1 and applied it to generate mnist dataset.
-- **2. Cnn**
-    - Convolutional Neural Network implemented by tensorflow 1 to recognize digital verification code.
-- **3. ann_by_matlab**
-    - A toy example that implementation of artificial neural network using matlab which is applied to mnist classification problem.
-    - It worth mentioning that the program for reading mnist dataset to memory is comes from the internet.
+This part contains contains code related to deep learning methods, most of which are implemented using PyTorch or TensorFlow. Below is a brief introduction to these implementations.
+- **1. GAN**
+    - Generative Adversarial Network.  I implemented a GAN using TensorFlow 1, applying it to generate the MNIST dataset.
+- **2. CNN**
+    - Convolutional Neural Network: Implemented using TensorFlow 1 to recognize CAPTCHA (digital verification) codes.
+- **3. ANN(MATLAB)**
+    - A toy example implementing an artificial neural network in MATLAB, applied to the MNIST classification problem.
 - **4. High Confidence Predictions for Unrecognizable Images**
-    - A simple demo about adversarial examples. More precisely, Using genetic algorithm to generate some adversarial examples.
+    - A simple demo for generating adversarial examples using a genetic algorithm.
     - Reference: *Anh Nguyen, Jason Yosinski and Jeff Clune. Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable Images. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 427-436.*
-- **autograd without torch**
-    - A simpy system which to calculate gradient automatically without torch. You can use this item to understand the automatic derivation mechanism in torch. Each tensor is represented as a node in computational graph. The edges built by forward propagation decide the path of derivation and the direction of derivation is from top to bottom. You can rewrite more operations and elementary functions if you want to build exclusive autograd system.
-- **lstm**
-  - lstm is a common neural network which is to tackle serialized data. Compared with RNN, It can handle vanishing
-      gradient problem by preserving long-term memory.
+- **AutoGrad without Torch**
+    - A simpy system designed to calculate gradients automatically, without using Torch. This system helps you understand the automatic differentiation mechanism in Torch. Each tensor is represented as a node in a computational graph, with the edges built through forward propagation determining the derivative path. The direction of the derivation flows from top to bottom. It is available to extend this system by rewriting additional operations and elementary functions to build your own custom autograd system.
+- **LSTM**
+  - LSTM (Long Short-Term Memory) is a type of neural network designed to handle sequential data. Compared to traditional RNNs, LSTMs are more effective at addressing the vanishing gradient problem by preserving long-term dependencies.
   - Reference:
       1. *https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html?highlight=lstm#torch.nn.LSTM*
       2. *2022 Summer Short Course in TianYuan Mathematical Center in Central China:
@@ -51,25 +48,41 @@ This part contains the code about deep learning algorithm. Most of them are impl
               Course Video :Course(2) replay in http://tmcc.whu.edu.cn/info/1262/2052.htm*
       3. *https://www.bilibili.com/video/BV1zq4y1m7aH?spm_id_from=333.337.search-card.all.click*
 - **VAE**
-  - VAE is abbreviation of Variational Auto Encoder, which combine the variational inference and autoencoder to creat a great method of representation learning. I implemented the demo mentioned in original paper.
+  - Variational Autoencoder: By combining variational inference with autoencoders, it learns effective representations and generates images based on these learned representations. I implemented the demo from the original paper.
   - Reference: *Diederik P Kingma and Max Welling. Auto-encoding variational bayes, 2022.*
 - **resnet50**
-  - In my project, I was required to convert Imagenet1K into 1000 HDF5 files due to the file quantity restrictions imposed by the Supercomputing Center of Wuhan University. These files were named in accordance with their respective classes. Following this, I had to customize a dataloader for training, as demonstrated in `train_reader.py`. In addition, I encountered a CPU bottleneck issue. However, I successfully resolved it by allocating more CPU cores and setting `num_works` and `prefetch_factor` to larger values. Furthermore, I set `pin_memory` to true during the construction of the dataloader, which kept the Volatile GPU-Util busier. One potential pitfall to be aware of is that the Imagenet1K training dataset contains a small number of grayscale images and images with four channels. This is an important consideration when customizing your own dataloader.
-  - The model's code draws inspiration from the original ResNet code, authored by Kaiming He. But maybe due to the optimization policy, I only achieve 68.1% validation accuracy after training 64 epochs. which is far from 78% mentioned in paper. Don't forget to create folder named `res` when you use my code to train model and save it. 
+  - In this project, I was tasked with converting ImageNet1K into 1000 HDF5 files to comply with the file quantity restrictions set by the Supercomputing Center of Wuhan University. Each file was named according to its respective class. Following this, I customized a dataloader for training, as shown in `train_reader.py`. During the process, I encountered a CPU bottleneck, which I resolved by allocating more CPU cores and adjusting the `num_workers` and `prefetch_factor` to larger values. Additionally, I set pin_memory to True when constructing the dataloader, which helped keep the GPU busier by improving memory transfer efficiency.
+
+  - One important consideration is that the ImageNet1K training dataset contains a small number of grayscale images and images with four channels, which should be taken into account when customizing your own dataloader.
+
+  - The model’s code is inspired by the original ResNet implementation by Kaiming He. However, maybe due to certain optimization strategies, I achieved a validation accuracy of only 68.1% after 64 epochs, which is notably lower than the 78% reported in the original paper. Please remember to create a folder named `res` when using my code to train the model and save the results.
   - Reference:
     - *Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. CoRR, abs/1512.03385, 2015. URL http://arxiv.org/abs/1512.03385.*
 - **TransferLearning**
-  - In this implementation, I employ transfer learning technique to address the challenge posed by the APTOS 2019 Blindness Detection competition on Kaggle, which aims to detect diabetic retinopathy early enough to prevent blindness. Transfer Learning allows you to leverage a smaller dataset and reduce training time, while achieving comparable or even superior performance compared to training from scratch.  
+  - In this implementation, I use the transfer learning technique to tackle the problem posed by the APTOS 2019 Blindness Detection competition on Kaggle. The goal of the competition is to detect diabetic retinopathy early enough to prevent blindness. Transfer learning enables the use of pre-trained models, leveraging their learned representations to train on a smaller dataset. This approach not only reduces training time but also achieves comparable, or even superior, performance compared to training a model from scratch. 
   - The competition details can be found at *https://www.kaggle.com/competitions/aptos2019-blindness-detection/overview*. 
-  - The backbone of my solution is the ResNet50 architecture. It can be available through https://download.pytorch.org/models/resnet50-0676ba61.pth. You can also use the weights pretraining by yourself.
+  - The representation employed is ResNet50. It can be available through https://download.pytorch.org/models/resnet50-0676ba61.pth. You can also use the weights pretraining by yourself.
+- **WGAN**
+  - Wasserstein Generative Adversarial Network (WGAN): Compared to the traditional GAN, WGAN uses the Wasserstein distance to replace the Jensen-Shannon (JS) divergence. The implementation includes both weight clipping and gradient penalty techniques to enforce the Lipschitz constraint, which is crucial for the proper functioning of WGANs.
+  - Reference:
+     - *Arjovsky, Martin, Soumith Chintala, and Léon Bottou. "Wasserstein generative adversarial networks." International conference on machine learning. PMLR, 2017.*
+     - *Gulrajani, Ishaan, et al. "Improved training of wasserstein gans." Advances in neural information processing systems 30 (2017).*
+- **SSL**
+   - Self-Supervised Learning (SSL) including some typical method in the area of self-supervised contrastive learning, including BarlowTwins, VicReg, SimCLR, WMSE, Spectral contrastive loss and Haochen22.
+   - Reference:
+       - *Zbontar, Jure, et al. "Barlow twins: Self-supervised learning via redundancy reduction." International conference on machine learning. PMLR, 2021.*
+       - *Bardes, Adrien, Jean Ponce, and Yann LeCun. "Vicreg: Variance-invariance-covariance regularization for self-supervised learning." arXiv preprint arXiv:2105.04906 (2021).*
+       - *Chen, Ting, et al. "A simple framework for contrastive learning of visual representations." International conference on machine learning. PMLR, 2020.*
+       - *Ermolov, Aleksandr, et al. "Whitening for self-supervised representation learning." International conference on machine learning. PMLR, 2021.*
+       - *HaoChen, Jeff Z., et al. "Provable guarantees for self-supervised deep learning with spectral contrastive loss." Advances in Neural Information Processing Systems 34 (2021): 5000-5011.*
+       - *HaoChen, Jeff Z., et al. "Beyond separability: Analyzing the linear transferability of contrastive representations to related subpopulations." Advances in neural information processing systems 35 (2022): 26889-26902.*
+       - *HaoChen, Jeff Z., and Tengyu Ma. "A theoretical study of inductive biases in contrastive learning." arXiv preprint arXiv:2211.14699 (2022).*
 
 ***2. Reinforcement Learning*** 
 - **1. Env**
     - Some basic reinforcement learning environments.
 - **2. EpsilonGreedy**
-    - EpsilonGreedy is an implement class of the simplest reinforcement learning method which
-    is suitable for single state and finite action(denoted as k in here). It is a revising version
-    of greedy method. Its creation is used to avoid Local maximizer problem. Here is a simplest demo which apply this algorithm to the multi-armed bandit problem.
+    - EpsilonGreedy is an implement class of the simplest reinforcement learning method which is suitable for single state and finite action(denoted as k in here). It is a revising version of greedy method. Its creation is used to avoid Local maximizer problem. Here is a simplest demo which apply this algorithm to the multi-armed bandit problem.
     - Reference: 
         1. *2022 Summer Short Course in TianYuan Mathematical Center in Central China:
         Mathematical Theory and Applications of Deep Learning
@@ -100,11 +113,11 @@ This part contains the code about deep learning algorithm. Most of them are impl
     process to find a great policy what ur need.
     policy evaluation -> policy improve -> policy evaluation -> policy improve -> .... (until convergence)
     - Reference: 
-        1. *2022 Summer Short Course in TianYuan Mathematical Center in Central China:
+        - *2022 Summer Short Course in TianYuan Mathematical Center in Central China:
             Mathematical Theory and Applications of Deep Learning
             Prof. Haizhao Yang (University of Maryland,CollegePark)
             Course Video :Course(3) replay in http://tmcc.whu.edu.cn/info/1262/2052.htm*
-       2. Reference:*https://hrl.boyuai.com/chapter/1/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95#433-%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95*
+       - Reference:*https://hrl.boyuai.com/chapter/1/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95#433-%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95*
 - **7. TemporalDifference**
   - You can view temporal difference as a method which is used to revise the estimation of Q(s,a) by online data. Sarsa use temporal difference evaluate action value function, and reset the greedy policy as ε-greedy in policy improvement.
   - Reference:*https://hrl.boyuai.com/chapter/1/%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95#53-sarsa-%E7%AE%97%E6%B3%95*
