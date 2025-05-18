@@ -4,8 +4,9 @@ from .haochen22 import Haochen22
 from .barlow_twins import BarlowTwins
 from .vicreg import Vicreg
 from .spectral import Spectral
+from .swav import SwAV
 
-METHOD_LIST = ["vicreg", "haochen22", "w_mse", "barlow_twins", "simclr", "spectral"]
+METHOD_LIST = ["vicreg", "haochen22", "w_mse", "barlow_twins", "simclr", "spectral", "swav"]
 
 
 def get_method(name):
@@ -24,3 +25,5 @@ def get_method(name):
         return Spectral
     elif name == "simclr":
         return SimCLR
+    elif name == "swav":
+        return SwAV
