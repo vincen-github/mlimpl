@@ -4,7 +4,6 @@ from .haochen22 import Haochen22
 from .barlow_twins import BarlowTwins
 from .vicreg import Vicreg
 from .spectral import Spectral
-from .swav import SwAV
 
 METHOD_LIST = ["vicreg", "haochen22", "w_mse", "barlow_twins", "simclr", "spectral"]
 
